@@ -1,5 +1,6 @@
 {
     "deutsch": {
+        "country-code": "de",
         "version": {
             "pp1": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-1-German/main/config.jet",
             "pp2": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-2-German/main/config.jet",
@@ -35,6 +36,7 @@
         }
     },
     "spanish latam": {
+        "country-code": "es",
         "version": {
             "pp1": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
             "pp2": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
@@ -71,6 +73,7 @@
         }
     },
     "spanish spain": {
+        "country-code": "es",
         "version": {
             "pp1": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
             "pp2": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
@@ -107,6 +110,7 @@
         }
     },
     "catalan": {
+        "country-code": "es",
         "version": {
             "pp1": "https://raw.githubusercontent.com/PauGuri2002/JPP1-CA/master/config.jet",
             "pp2": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
