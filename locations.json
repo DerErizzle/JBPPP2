@@ -36,7 +36,7 @@
         }
     },
     "spanish latam": {
-        "country-code": "es",
+        "country-code": "ar",
         "version": {
             "pp1": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
             "pp2": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
