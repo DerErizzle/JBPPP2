@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ppother.png-b9f74d475bc7357c7005f9f3973a7b06.stex"
+path="res://.import/qp2.png-1806647557f2ccf46bce743d9db2d762.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/ppother.png"
-dest_files=[ "res://.import/ppother.png-b9f74d475bc7357c7005f9f3973a7b06.stex" ]
+source_file="res://games/qp2.png"
+dest_files=[ "res://.import/qp2.png-1806647557f2ccf46bce743d9db2d762.stex" ]
 
 [params]
 

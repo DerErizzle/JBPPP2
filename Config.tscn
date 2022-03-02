@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://pictures/background_config.jpg" type="Texture" id=1]
+[ext_resource path="res://scripts/Config.gd" type="Script" id=2]
+[ext_resource path="res://JPPP_Theme.tres" type="Theme" id=3]
+[ext_resource path="res://fonts/savate-regular-webfont.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 53
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 29
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="Config" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="bt_back" type="Button" parent="."]
+margin_left = 17.0
+margin_top = 21.0
+margin_right = 71.0
+margin_bottom = 41.0
+theme = ExtResource( 3 )
+text = "< Back"
+
+[node name="rtl_title" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_top = 60.0
+margin_bottom = 141.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Game Title Here[/center]"
+text = "Game Title Here"
+scroll_active = false
+
+[node name="rtl_version" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+margin_left = 668.0
+margin_top = 127.0
+margin_bottom = 185.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "version: %s"
+text = "version: %s"
+scroll_active = false
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 94.0
+margin_top = -226.0
+margin_right = -28.0
+margin_bottom = -36.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_constants/vseparation = 71
+custom_constants/hseparation = 100
+columns = 5
+
+[connection signal="pressed" from="bt_back" to="." method="_on_bt_back_pressed"]

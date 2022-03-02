@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/quiplash.png-7b55000564d23bfe91d37b26b9def0dd.stex"
+path="res://.import/dr2.png-11c2ff3d28c0c027db7a78a1aef89cf4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/quiplash.png"
-dest_files=[ "res://.import/quiplash.png-7b55000564d23bfe91d37b26b9def0dd.stex" ]
+source_file="res://games/dr2.png"
+dest_files=[ "res://.import/dr2.png-11c2ff3d28c0c027db7a78a1aef89cf4.stex" ]
 
 [params]
 

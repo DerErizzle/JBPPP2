@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/drawful2.png-08a25ed81af89b2221256f9de97a44c2.stex"
+path="res://.import/fxl.png-f6844103be5496ea71bee5ead6ef575a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/drawful2.png"
-dest_files=[ "res://.import/drawful2.png-08a25ed81af89b2221256f9de97a44c2.stex" ]
+source_file="res://games/fxl.png"
+dest_files=[ "res://.import/fxl.png-f6844103be5496ea71bee5ead6ef575a.stex" ]
 
 [params]
 

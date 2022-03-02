@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/useyourwords.jpg-daeff10d24311f194d1c4fb3440ac939.stex"
+path="res://.import/wtd.png-fbcceb0516cbd4bc634873bf530f5711.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/useyourwords.jpg"
-dest_files=[ "res://.import/useyourwords.jpg-daeff10d24311f194d1c4fb3440ac939.stex" ]
+source_file="res://games/wtd.png"
+dest_files=[ "res://.import/wtd.png-fbcceb0516cbd4bc634873bf530f5711.stex" ]
 
 [params]
 

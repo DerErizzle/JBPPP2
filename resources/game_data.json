@@ -1,88 +1,116 @@
 {
-    "games": [
-      {
-        "title": "Drawful 2",
-        "shortname": "drawful2",
-        "appid": 442070,
-        "exe": "Drawful 2.exe"
-      },
-      {
-        "title": "Fibbage XL",
-        "shortname": "fibbagexl",
-        "appid": 448080,
-        "exe": "Fibbage XL.exe"
-      },
-      {
-        "title": "Party Pack",
-        "shortname": "pp1",
-        "appid": 331670,
-        "exe": "The Jackbox Party Pack.exe"
-      },
-      {
-        "title": "Party Pack 2",
-        "shortname": "pp2",
-        "appid": 397460,
-        "exe": "The Jackbox Party Pack 2.exe"
-      },
-      {
-        "title": "Party Pack 3",
-        "shortname": "pp3",
-        "appid": 434170,
-        "exe": "The Jackbox Party Pack 3.exe"
-      },
-      {
-        "title": "Party Pack 4",
-        "shortname": "pp4",
-        "appid": 610180,
-        "exe": "The Jackbox Party Pack 4.exe"
-      },
-      {
-        "title": "Party Pack 5",
-        "shortname": "pp5",
-        "appid": 774461,
-        "exe": "The Jackbox Party Pack 5.exe"
-      },
-      {
-        "title": "Party Pack 6",
-        "shortname": "pp6",
-        "appid": 1005300,
-        "exe": "The Jackbox Party Pack 6.exe"
-      },
-      {
-        "title": "Party Pack 7",
-        "shortname": "pp7",
-        "appid": 1211630,
-        "exe": "The Jackbox Party Pack 7.exe"
-      },
-      {
-        "title": "Party Pack 8",
-        "shortname": "pp8",
-        "appid": 1552350,
-        "exe": "The Jackbox Party Pack 8.exe"
-      },
-      {
-        "title": "Quiplash",
-        "shortname": "quiplash",
-        "appid": 351510,
-        "exe": "Quiplash.exe"
-      },
-      {
-        "title": "Quiplash 2",
-        "shortname": "quiplash2",
-        "appid": 1111940,
-        "exe": "Quiplash 2 InterLASHional.exe"
-      },
-      {
-        "title": "Use Your Words",
-        "shortname": "uyw",
-        "appid": 521350,
-        "exe": "uyw.exe"
-      },
-      {
-        "title": "What the Dub",
-        "shortname": "wtd",
-        "appid": 1495860,
-        "exe": "WhatTheDub.exe"
-      }
-    ]
-  }
+  "games": [
+    {
+      "title": "Drawful 2",
+      "shortname": "dr2",
+      "appid": 442070,
+      "exe": "Drawful 2.exe",
+      "folder": "Drawful 2",
+      "config": "jbg.config.jet"
+    },
+    {
+      "title": "Fibbage XL",
+      "shortname": "fxl",
+      "appid": 448080,
+      "exe": "Fibbage XL.exe",
+      "folder": "Fibbage XL",
+      "config": "jbg.config.jet"
+    },
+    {
+      "title": "Party Pack",
+      "shortname": "pp1",
+      "appid": 331670,
+      "exe": "The Jackbox Party Pack.exe",
+      "folder": "The Jackbox Party Pack",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 2",
+      "shortname": "pp2",
+      "appid": 397460,
+      "exe": "The Jackbox Party Pack 2.exe",
+      "folder": "The Jackbox Party Pack 2",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 3",
+      "shortname": "pp3",
+      "appid": 434170,
+      "exe": "The Jackbox Party Pack 3.exe",
+      "folder": "The Jackbox Party Pack 3",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 4",
+      "shortname": "pp4",
+      "appid": 610180,
+      "exe": "The Jackbox Party Pack 4.exe",
+      "folder": "The Jackbox Party Pack 4",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 5",
+      "shortname": "pp5",
+      "appid": 774461,
+      "exe": "The Jackbox Party Pack 5.exe",
+      "folder": "The Jackbox Party Pack 5",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 6",
+      "shortname": "pp6",
+      "appid": 1005300,
+      "exe": "The Jackbox Party Pack 6.exe",
+      "folder": "The Jackbox Party Pack 6",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 7",
+      "shortname": "pp7",
+      "appid": 1211630,
+      "exe": "The Jackbox Party Pack 7.exe",
+      "folder": "The Jackbox Party Pack 7",
+      "config": "config.jet"
+    },
+    {
+      "title": "Party Pack 8",
+      "shortname": "pp8",
+      "appid": 1552350,
+      "exe": "The Jackbox Party Pack 8.exe",
+      "folder": "The Jackbox Party Pack 8",
+      "config": "config.jet"
+    },
+    {
+      "title": "Quiplash",
+      "shortname": "qp1",
+      "appid": 351510,
+      "exe": "Quiplash.exe",
+      "folder": "Quiplash",
+      "config": "jbg.config.jet"
+    },
+    {
+      "title": "Quiplash 2",
+      "shortname": "qp2",
+      "appid": 1111940,
+      "exe": "Quiplash 2 InterLASHional.exe",
+      "folder": "Quiplash 2 InterLASHional",
+      "config": "jbg.config.jet"
+    },
+    {
+      "title": "Use Your Words",
+      "shortname": "uyw",
+      "appid": 521350,
+      "exe": "uyw.exe",
+      "folder": "Use Your Words",
+      "config": "version.dat"
+    },
+    {
+      "title": "What the Dub",
+      "shortname": "wtd",
+      "appid": 1495860,
+      "exe": "WhatTheDub.exe",
+      "folder": "WhatTheDub",
+      "config": "version.dat"
+    }
+  ]
+}

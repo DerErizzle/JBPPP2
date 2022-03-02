@@ -32,7 +32,7 @@ func _detect_drive_letter() -> int:
 		var err = file.open("%s\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf" % letter, File.READ)
 		if err == OK:
 			drive_letter = letter
-			steam_games_dir = "%s\\Program Files (x86)\\Steam\\steamapps\\common"
+			steam_games_dir = "%s\\Program Files (x86)\\Steam\\steamapps\\common\\" % letter
 		else: continue
 	
 	print("DriveLetter: ", drive_letter)
@@ -86,5 +86,51 @@ func _detect_steam_games() -> void:
 		for arr in found_games_data:
 			if str(game.appid) == str(arr[0]):
 				print("Detected this game :D\n\n")
+				_insert_game(game)
+	
+	pass
+
+const game_button = preload("res://stuff/tb_game.tscn")
+onready var game_container: GridContainer = find_node("GameContainer")
+
+func _insert_game(data:Dictionary) -> void:
+	print(data)
+	
+	var button:TextureButton = game_button.instance()
+	
+	var texture = ImageTexture.new()
+	var image = Image.new()
+	image.load("res://games/%s.png" % data.shortname)
+	texture.create_from_image(image)
+	button.texture_normal = texture
+	
+	button.hint_tooltip = data.title
+	button.connect("pressed",self,"_on_game_button_pressed", [data])
+	
+	game_container.add_child(button)
+	
+	
+	pass
+
+func _on_game_button_pressed(data:Dictionary) -> void:
+	data.version = _get_game_version(data)
+	Manager.set_game_data(data)
+	Manager.change_screen(Manager.SCREEN.CONFIG)
+	print("Changin")
+	pass
+
+func _get_game_version(data:Dictionary) -> String:
+	
+	var game_path :String = steam_games_dir + data.folder + "\\%s" % data.config
+	
+	var err = file.open(game_path, File.READ)
+	var file_data :Dictionary = parse_json(file.get_as_text())
+	var build_version:String = file_data.buildVersion
+	
+	return build_version
+	
+
+#emited when you change screens is done
+func screen_just_entered() -> void:
 	
 	pass

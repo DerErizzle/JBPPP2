@@ -10,12 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Control",
+"class": "Config",
+"language": "GDScript",
+"path": "res://scripts/Config.gd"
+}, {
+"base": "Control",
 "class": "Main",
 "language": "GDScript",
 "path": "res://scripts/Main.gd"
+}, {
+"base": "Panel",
+"class": "Mod",
+"language": "GDScript",
+"path": "res://scripts/Mod.gd"
 } ]
 _global_script_class_icons={
-"Main": ""
+"Config": "",
+"Main": "",
+"Mod": ""
 }
 
 [application]

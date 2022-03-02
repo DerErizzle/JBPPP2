@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fibbagexl.png-45aeaa878c6e2440269e51f0b881a2cd.stex"
+path="res://.import/qp1.png-609bfc12c218bfef184c7eae5af1ceb5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/fibbagexl.png"
-dest_files=[ "res://.import/fibbagexl.png-45aeaa878c6e2440269e51f0b881a2cd.stex" ]
+source_file="res://games/qp1.png"
+dest_files=[ "res://.import/qp1.png-609bfc12c218bfef184c7eae5af1ceb5.stex" ]
 
 [params]
 

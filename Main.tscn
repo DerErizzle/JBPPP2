@@ -1,21 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://pictures/background.jpg" type="Texture" id=1]
 [ext_resource path="res://JPPP_Theme.tres" type="Theme" id=2]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=3]
+[ext_resource path="res://Config.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Screen" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="TextureRect" parent="Screen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
 expand = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="Screen"]
 margin_left = 504.0
 margin_top = 121.0
 margin_right = 1137.0
@@ -24,7 +29,7 @@ bbcode_enabled = true
 bbcode_text = "[center]Jackbox Party Pack Patcher+ - The All-in-one[/center]"
 text = "Jackbox Party Pack Patcher+ - The All-in-one"
 
-[node name="bt_detect_all" type="Button" parent="."]
+[node name="bt_detect_all" type="Button" parent="Screen"]
 margin_left = 731.0
 margin_top = 182.0
 margin_right = 933.0
@@ -32,4 +37,22 @@ margin_bottom = 232.0
 theme = ExtResource( 2 )
 text = "Detect all games"
 
-[connection signal="pressed" from="bt_detect_all" to="." method="_on_bt_detect_all_pressed"]
+[node name="GameContainer" type="GridContainer" parent="Screen"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = -247.0
+margin_right = -16.0
+margin_bottom = -25.0
+custom_constants/vseparation = 22
+custom_constants/hseparation = 90
+columns = 7
+
+[node name="Config" parent="." instance=ExtResource( 4 )]
+margin_left = 1332.0
+margin_right = 1332.0
+
+[connection signal="pressed" from="Screen/bt_detect_all" to="." method="_on_bt_detect_all_pressed"]
+
+[editable path="Config"]
