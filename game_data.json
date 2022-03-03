@@ -3,7 +3,7 @@
     {
       "title": "Drawful 2",
       "shortname": "dr2",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/dr2.png?raw=true",
       "appid": 442070,
       "exe": "Drawful 2.exe",
       "folder": "Drawful 2",
@@ -12,7 +12,7 @@
     {
       "title": "Fibbage XL",
       "shortname": "fxl",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/fxl.png?raw=true",
       "appid": 448080,
       "exe": "Fibbage XL.exe",
       "folder": "Fibbage XL",
@@ -21,7 +21,7 @@
     {
       "title": "Party Pack",
       "shortname": "pp1",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp1.png?raw=true",
       "appid": 331670,
       "exe": "The Jackbox Party Pack.exe",
       "folder": "The Jackbox Party Pack",
@@ -30,7 +30,7 @@
     {
       "title": "Party Pack 2",
       "shortname": "pp2",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp2.png?raw=true",
       "appid": 397460,
       "exe": "The Jackbox Party Pack 2.exe",
       "folder": "The Jackbox Party Pack 2",
@@ -39,7 +39,7 @@
     {
       "title": "Party Pack 3",
       "shortname": "pp3",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp3.png?raw=true",
       "appid": 434170,
       "exe": "The Jackbox Party Pack 3.exe",
       "folder": "The Jackbox Party Pack 3",
@@ -48,7 +48,7 @@
     {
       "title": "Party Pack 4",
       "shortname": "pp4",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp4.png?raw=true",
       "appid": 610180,
       "exe": "The Jackbox Party Pack 4.exe",
       "folder": "The Jackbox Party Pack 4",
@@ -57,7 +57,7 @@
     {
       "title": "Party Pack 5",
       "shortname": "pp5",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp5.png?raw=true",
       "appid": 774461,
       "exe": "The Jackbox Party Pack 5.exe",
       "folder": "The Jackbox Party Pack 5",
@@ -66,7 +66,7 @@
     {
       "title": "Party Pack 6",
       "shortname": "pp6",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp6.png?raw=true",
       "appid": 1005300,
       "exe": "The Jackbox Party Pack 6.exe",
       "folder": "The Jackbox Party Pack 6",
@@ -75,7 +75,7 @@
     {
       "title": "Party Pack 7",
       "shortname": "pp7",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp7.png?raw=true",
       "appid": 1211630,
       "exe": "The Jackbox Party Pack 7.exe",
       "folder": "The Jackbox Party Pack 7",
@@ -84,7 +84,7 @@
     {
       "title": "Party Pack 8",
       "shortname": "pp8",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp8.png?raw=true",
       "appid": 1552350,
       "exe": "The Jackbox Party Pack 8.exe",
       "folder": "The Jackbox Party Pack 8",
@@ -93,7 +93,7 @@
     {
       "title": "Quiplash",
       "shortname": "qp1",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/qp1.png?raw=true",
       "appid": 351510,
       "exe": "Quiplash.exe",
       "folder": "Quiplash",
@@ -102,7 +102,7 @@
     {
       "title": "Quiplash 2",
       "shortname": "qp2",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/qp2.png",
       "appid": 1111940,
       "exe": "Quiplash 2 InterLASHional.exe",
       "folder": "Quiplash 2 InterLASHional",
@@ -111,7 +111,7 @@
     {
       "title": "Use Your Words",
       "shortname": "uyw",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/uyw.png?raw=true",
       "appid": 521350,
       "exe": "uyw.exe",
       "folder": "Use Your Words",
@@ -122,7 +122,7 @@
     {
       "title": "What the Dub",
       "shortname": "wtd",
-      "icon": "",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/wtd.png?raw=true",
       "appid": 1495860,
       "exe": "WhatTheDub.exe",
       "folder": "WhatTheDub",
