@@ -9,29 +9,37 @@ After updating those files, every user will not need to update their program, ju
 **game_data.json**:
 
 * title: 
+
 Is the Full name of the game ( GUI Only )
 
 * shortname:
+
 used to identify the game name in the locations.json, for example: DrawFul 2 is `dr2`
 also must be the same name of the image in the `icons/` folder
 
 * icon:
+
 the raw github url to the icons/image.png
 
 * appid:
+
 steam's game id, can be easily got by going to the game on steam and right click -> properties
 used for identifying the game in the program
 
 * exe:
+
 The name of the executable file inside steamapps/common/GAMENAME/GAMENAME.exe
 
 * folder:
+
 the name of the game folder in steamapps/common/
 
 * config:
+
 the name of the configuration file inside steamapps/common/GAMENAME/CONFIGFILE.FORMAT
 
 * custom_config:
+
 actually used in `Use Your Words` and `What The Dub` because they dont have configuration files,
 but the modder can create one, which is used to keep track of the game version
 
@@ -77,22 +85,28 @@ File structure
 ```
 
 * COUNTRY:
+
 The name of the country - all lowercase
 used for showing the country name in select language screen
 
 * COUNTRY-CODE:
+
 The country code, only possible countries/values listed here: https://flagcdn.com/en/codes.json
 used to show the country flag in the select language screen
 
 * SHORTNAME:
+
 same name used in `game_data.json`'s shortname tag
 
 * PATCH_LOCALE:
+
 Same name used in the configuration file of the mod
 
 * RAW_GITHUB_URL:
+
 The url to the mod files
 
 **IMPORTANT**
+
 the `version` tag points to the configuration file of the mod
 the `patch` tag points to the actual mod files in .zip format  
