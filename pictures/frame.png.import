@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fxl.png-f6844103be5496ea71bee5ead6ef575a.stex"
+path="res://.import/frame.png-2771cb007696fe7098019b14140ec5ee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://games/fxl.png"
-dest_files=[ "res://.import/fxl.png-f6844103be5496ea71bee5ead6ef575a.stex" ]
+source_file="res://pictures/frame.png"
+dest_files=[ "res://.import/frame.png-2771cb007696fe7098019b14140ec5ee.stex" ]
 
 [params]
 

@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/MsgBox.gd" type="Script" id=1]
+[ext_resource path="res://JPPP_Theme.tres" type="Theme" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.247059, 0.247059, 0.247059, 0.733333 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+shadow_color = Color( 0, 0, 0, 0.121569 )
+shadow_size = 3
+shadow_offset = Vector2( 10.448, 9.201 )
+
+[node name="MsgBox" type="Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 116.0
+margin_top = -82.0
+margin_right = -116.0
+margin_bottom = -23.0
+rect_min_size = Vector2( 1048, 59 )
+theme = ExtResource( 2 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -27.0
+margin_top = 5.0
+margin_right = -7.0
+margin_bottom = 25.0
+mouse_default_cursor_shape = 2
+text = "X"
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 5.0
+margin_right = -24.0
+margin_bottom = -5.0
+focus_mode = 2
+bbcode_enabled = true
+bbcode_text = "askjdhaksjdhasukhdauihqwuiheuiqwheiuqwheuihqwuiehqwuiehiuqwheuiwqhiueqwuiehuiadhauidhajksdhasidhyuipqwerçjkaw di9opuaskjaenfiasdhfosefksdjhfisudhfg0´8sdfopjsdhfipsduhfgisdhfuisdhg9osdygipjsdfhfgiopusdhfipsdhfkjsdhf"
+text = "askjdhaksjdhasukhdauihqwuiheuiqwheiuqwheuihqwuiehqwuiehiuqwheuiwqhiueqwuiehuiadhauidhajksdhasidhyuipqwerçjkaw di9opuaskjaenfiasdhfosefksdjhfisudhfg0´8sdfopjsdhfipsduhfgisdhfuisdhg9osdygipjsdfhfgiopusdhfipsdhfkjsdhf"
+scroll_active = false
+selection_enabled = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

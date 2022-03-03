@@ -21,13 +21,16 @@ func _http_request_completed(result, response_code, headers, body):
 	# Display the image in a TextureRect node.
 	$VBoxContainer/tr_flag.texture = texture
 
-func configure(lang:String, country_code:String) -> void:
+func configure(lang:String, country_code:String, button_name:String = "") -> void:
 	
 	$VBoxContainer/Label.text = lang
 	$VBoxContainer/Button.connect("pressed",self,"_on_pressed")
 	
+	if button_name != "":
+		$VBoxContainer/Button.text = button_name
+	
 		# Perform the HTTP request. The URL below returns a PNG image as of writing.
-	var error = http_request.request(Manager.URL_FLAG % country_code)
+	var error = http_request.request(Manager.REMOTE_FILES.URL_FLAG % country_code)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 

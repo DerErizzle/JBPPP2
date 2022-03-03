@@ -23,11 +23,23 @@ _global_script_classes=[ {
 "class": "Mod",
 "language": "GDScript",
 "path": "res://scripts/Mod.gd"
+}, {
+"base": "Panel",
+"class": "MsgBox",
+"language": "GDScript",
+"path": "res://scripts/MsgBox.gd"
+}, {
+"base": "Control",
+"class": "Settings",
+"language": "GDScript",
+"path": "res://scripts/Settings.gd"
 } ]
 _global_script_class_icons={
 "Config": "",
 "Main": "",
-"Mod": ""
+"Mod": "",
+"MsgBox": "",
+"Settings": ""
 }
 
 [application]
@@ -40,7 +52,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Manager="*res://scripts/MANAGER.gd"
+Manager="*res://scripts/Manager.gd"
 
 [display]
 
