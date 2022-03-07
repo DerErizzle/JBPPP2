@@ -1,24 +1,6 @@
 {
   "games": [
     {
-      "title": "Drawful 2",
-      "shortname": "dr2",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/dr2.png?raw=true",
-      "appid": 442070,
-      "exe": "Drawful 2.exe",
-      "folder": "Drawful 2",
-      "config": "jbg.config.jet"
-    },
-    {
-      "title": "Fibbage XL",
-      "shortname": "fxl",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/fxl.png?raw=true",
-      "appid": 448080,
-      "exe": "Fibbage XL.exe",
-      "folder": "Fibbage XL",
-      "config": "jbg.config.jet"
-    },
-    {
       "title": "Party Pack",
       "shortname": "pp1",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp1.png?raw=true",
@@ -100,12 +82,30 @@
       "config": "jbg.config.jet"
     },
     {
-      "title": "Quiplash 2",
+      "title": "Quiplash 2 InterLASHional",
       "shortname": "qp2",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/qp2.png?raw=true",
       "appid": 1111940,
       "exe": "Quiplash 2 InterLASHional.exe",
       "folder": "Quiplash 2 InterLASHional",
+      "config": "jbg.config.jet"
+    },
+    {
+      "title": "Drawful 2",
+      "shortname": "dr2",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/dr2.png?raw=true",
+      "appid": 442070,
+      "exe": "Drawful 2.exe",
+      "folder": "Drawful 2",
+      "config": "jbg.config.jet"
+    },
+    {
+      "title": "Fibbage XL",
+      "shortname": "fxl",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/fxl.png?raw=true",
+      "appid": 448080,
+      "exe": "Fibbage XL.exe",
+      "folder": "Fibbage XL",
       "config": "jbg.config.jet"
     },
     {
