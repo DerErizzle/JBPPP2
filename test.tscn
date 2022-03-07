@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+func _ready() -> void:
+	var file_path:String = \"user://pp2.zip\"
+	var out_path:String = \"user://test/\"
+	var zip_reader := ZIPReader.new()
+	var err = zip_reader.open(file_path)
+	if err != OK:
+		push_error(\"Error opening zip file: \" + str(err) )
+		return
+	var file_names := zip_reader.get_files()
+	
+	for file in file_names:
+		print(\"opening: \", file)
+#		zip_reader.
+"
+
+[node name="Control" type="Control" groups=["MC"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )

@@ -24,7 +24,7 @@ var tween : Tween = Tween.new()
 var dir: Directory = Directory.new()
 var file: File = File.new()
 
-onready var _msgContainer:VBoxContainer = get_tree().get_nodes_in_group("MC")[0]
+onready var _msgContainer = get_tree().get_nodes_in_group("MC")[0]
 const msg_box_scene = preload("res://stuff/msg_box.tscn")
 func _ready() -> void:
 	
@@ -52,7 +52,7 @@ func show_message(error_id:int=-1, extra_msg:String="") -> void:
 		ERROR.IMAGE_CORRUPTED: msg_box.set_message("IMAGE CORRUPTED" + msg)
 		_: msg_box.set_message(extra_msg)
 	
-	_msgContainer.add_child(msg_box)
+	_msgContainer.get_child(0).add_child(msg_box)
 	pass
 
 func set_game_data(data:Dictionary) -> void:
@@ -98,7 +98,7 @@ func _download_necessary_files() -> void:
 	
 	pass
 
-
+signal locations_downloaded
 func _on_requested_locations(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
 	
 	if response_code != 200:
@@ -108,7 +108,7 @@ func _on_requested_locations(result: int, response_code: int, headers: PoolStrin
 	mod_data = parse_json(body.get_string_from_utf8())
 
 	show_message(-1, "[color=yellow]Downloaded locations.json[/color]")
-	
+	emit_signal("locations_downloaded")
 	
 	
 	pass
@@ -197,3 +197,25 @@ func save_data() -> void:
 	_saving = false
 	
 	pass
+
+func create_request(target:Node,completed_function:String, url:String,extra_data:Array=[]) -> void:
+	
+	var http:HTTPRequest = HTTPRequest.new()
+	add_child(http)
+	http.connect("request_completed",target,completed_function,extra_data)
+	http.request(url)
+	yield(http,"request_completed")
+	http.queue_free()
+	
+	
+	pass
+
+func get_float_from_string(string:String) -> float:
+	var result:float = -1
+	
+	var regex:RegEx = RegEx.new()
+	regex.compile("[+-]?([0-9]*[.])?[0-9]+")
+	var _match:RegExMatch = regex.search(string)
+	result = float(_match.get_string())
+	
+	return result

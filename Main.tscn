@@ -24,6 +24,9 @@ width = 64
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Screen" type="Control" parent="."]
 anchor_right = 1.0
@@ -68,16 +71,56 @@ custom_constants/vseparation = 102
 custom_constants/hseparation = 215
 columns = 3
 
+[node name="Console" type="TextEdit" parent="Screen"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 19.0
+margin_top = 26.0
+margin_right = -18.0
+margin_bottom = -22.0
+readonly = true
+highlight_current_line = true
+syntax_highlighting = true
+draw_tabs = true
+breakpoint_gutter = true
+override_selected_font_color = true
+shortcut_keys_enabled = false
+virtual_keyboard_enabled = false
+smooth_scrolling = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bt_reset" type="Button" parent="Screen"]
+visible = false
+margin_left = 1039.0
+margin_top = 123.0
+margin_right = 1087.0
+margin_bottom = 143.0
+text = "Reset"
+
 [node name="Settings" parent="." instance=ExtResource( 5 )]
 
-[node name="MessageContainer" type="VBoxContainer" parent="." groups=["MC"]]
+[node name="MessageContainer" type="ScrollContainer" parent="." groups=["MC"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 35.0
-margin_top = 20.0
+margin_top = 508.0
 margin_right = -35.0
 margin_bottom = -20.0
 mouse_filter = 2
 size_flags_horizontal = 2
 size_flags_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MessageContainer"]
+margin_right = 1210.0
+margin_bottom = 192.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 alignment = 2
+
+[connection signal="pressed" from="Screen/bt_reset" to="." method="_on_bt_reset_pressed"]
