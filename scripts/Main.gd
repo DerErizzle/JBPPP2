@@ -12,6 +12,9 @@ var drive_letter:String = ""
 var steam_games_dir:String = ""
 var found_games_data:Array = [] # this is a multidimentional array = [ [0,1], [0,1] ] -> 0 is appid and 1 is game update version
 
+func _ready() -> void:
+	Manager.main = self
+
 var _line:int = 0
 func console_add_text(message:String) -> void:
 	
@@ -162,7 +165,6 @@ func _check_game_status(data:Dictionary, label:Label, version:String, button:But
 	while not _games_version_data.has(data.shortname):
 		yield(self,"_version_request_done")
 		
-		
 	if _failed:
 		Manager.show_message(-1, "[color=red]Failed requesting game version[/color]")
 		return
@@ -233,62 +235,40 @@ func screen_just_entered() -> void:
 	pass
 
 signal _zip_downloaded
-var unzip := ZIPReader.new()
+var _is_download_done:bool = false
 var _zip_failed:bool = false
 var _zip_game:Dictionary = {}
 func _on_update_pressed(button:Button, game:Dictionary) -> void:
+	_is_download_done = false
 	console.visible = true
 	_zip_failed = false
 	_zip_game = game
 	var url_mod:String = Manager.mod_data[Manager.data_local.lang]["patch"][game.shortname]
-	Manager.create_request(self,"_on_downloaded_zip",url_mod)
-	console_add_text("Downloading patch...")
+	var http:HTTPRequest = Manager.create_request(self,"_on_downloaded_zip",url_mod)
+	console_add_text("Downloading patch...")	
+	while not _is_download_done:
+		var request_size:int = http.get_body_size()
+		var downloaded_bytes:int = http.get_downloaded_bytes()
+		var percent := int(downloaded_bytes*100/request_size)
+		console_add_text("%d%%" % [percent])
+		yield(get_tree().create_timer(.1,false),"timeout")
+		pass
 	button.disabled = true
-	yield(self,"_zip_downloaded")
+	http.queue_free()
 	if _zip_failed:
 		Manager.show_message(-1,"[color=red] DOWNLOAD ERROR[/color]")
 		button.disabled = false
 		return
 	Manager.show_message(-1, "[color=lime]Download finished successfully![/color]")
-	var err = unzip.open("user://%s.zip"% game.shortname)
+	
+	# EXTRACT FILES
 	var game_dir:String = steam_games_dir + game.folder
-	if err == OK:
-		var file_list:PoolStringArray= unzip.get_files()
-		var items:int = file_list.size()
-		var item_idx:int = 0
-		for file_name in file_list:
-			item_idx += 1
-			var new_file_name:String = ""
-			if file_name.ends_with("/"): continue #ignore this file since its a folder
-			
-			if "/" in file_name:
-				new_file_name = file_name.replace("/","\\") # make the directory
-			
-			if new_file_name == "":
-				new_file_name = file_name
-			var full_dir:String = game_dir+"\\%s" % new_file_name
-			var _file := File.new()
-			var error = _file.open(full_dir,File.WRITE)
-			if error != OK:
-				console_add_text("Error opening %s, Error: %d" % [new_file_name, error])
-				continue
-				pass
-			var buffer:PoolByteArray = unzip.read_file(file_name)
-			
-			if buffer.size() == 0:
-				Manager.show_message(-1, "Failed uncompress: %s" % file_name )
-				continue
-			console_add_text("[%d/%d] - Extracting: %s" % [item_idx,items, new_file_name])
-			_file.store_buffer(buffer)
-			_file.close()
-			yield(get_tree(),"idle_frame")
-			pass
-		pass
-	else:
-		Manager.show_message(-1, "[color=red]Failed loading zip file: %d[/color]" % err)
-		unzip.close()
-	unzip.close()
+	extract("user://%s.zip" % game.shortname, game_dir )
+	yield(self, "threads_done")
+#	Manager.show_message(-1,"[color=lime]%s[/color]" % str(time_string) )
+	# DONE
 	console.visible = false
+	console.text = ""
 	_detect_steam_games() # update the datas
 	pass
 
@@ -300,6 +280,7 @@ func _on_downloaded_zip(result: int, response_code: int, headers: PoolStringArra
 	var err = file.open("user://%s.zip" % _zip_game.shortname,File.WRITE)
 	file.store_buffer(body)
 	file.close()
+	_is_download_done = true
 	emit_signal("_zip_downloaded")
 	pass
 
@@ -307,3 +288,149 @@ func _on_downloaded_zip(result: int, response_code: int, headers: PoolStringArra
 func _on_bt_reset_pressed() -> void:
 	_detect_steam_games()
 	pass # Replace with function body.
+
+# MULTI-THREADED  EXTRACTING =================================
+
+var mutex := Mutex.new()
+var _messages := PoolStringArray()
+var jobs_done:int = 0
+signal threads_done
+
+func extract(path:String="", out_path:String="") -> void:
+	var zip := ZIPReader.new()
+	var _threads:Array = []
+	var start_time:float = 0
+	var end_time:float = 0
+	
+	for i in range(OS.get_processor_count()):
+		_threads.append(Thread.new())
+		print("Thread count: ", _threads.size())
+	Manager.main.console_add_text("Thread count: " + str(_threads.size()))
+	jobs_done = 0
+	start_time = OS.get_ticks_msec()
+	#prepare paths:
+	
+	if "\\" in out_path:
+		out_path = out_path.replace("\\","/")
+	if not out_path.ends_with("/"):
+		out_path += "/"
+	
+	
+	# DEBUG VARS DELETEME
+#	path = "C:/Users/nonunknown/AppData/Roaming/Godot/app_userdata/JPPP/pp2.zip"
+#	out_path = "C:/Users/nonunknown/AppData/Roaming/Godot/app_userdata/JPPP/test/"
+	# END DEBUG
+	
+	var err = zip.open(path)
+	
+	if err != OK:
+		print("ERROR opening: ", err)
+		Manager.show_message(-1, "[color=red]Error opening zip: %d[/color]" % err)
+	
+	var files_name :PoolStringArray = zip.get_files()
+	var data:Dictionary = _filter_files(files_name)
+	
+	#create dirs
+	var dir := Directory.new()
+	for dir_path in data.dirs:
+		dir.make_dir_recursive(out_path + dir_path)
+	
+	#split the files into parts to use in the threads
+	var num_files:int = data.files.size()
+	Manager.main.console_add_text("Number of files: " + str(num_files))
+	print("Number of files: ", num_files)
+	var max_files:int = int(num_files/_threads.size())
+	print("Division: ", max_files)
+	var the_files:PoolStringArray = data.files
+	var split_files:Array = []
+	var target:int = 0
+	
+	# mount array
+	for i in range(_threads.size()):
+		split_files.append([])
+	
+	#split the filenames
+	for i in range(num_files):
+		var arr_idx:int = i % _threads.size()
+		split_files[arr_idx].append(the_files[i])
+		pass
+	
+	
+	for i in range(_threads.size()):
+		_threads[i].start(self, "_unzip_thread",{files=split_files[i], id=i, zip_path=path, out=out_path})
+		yield(get_tree(),"idle_frame")
+		pass
+#
+	for thread in _threads:
+		if _messages.size() > 0:
+			mutex.lock()
+			console_add_text(_messages[0])
+			_messages.remove(0)
+			mutex.unlock()
+		thread.wait_to_finish()
+		console_add_text("waiting thread: " + str(thread))
+		yield(get_tree(),"idle_frame")
+	
+	
+
+#	while jobs_done < _threads.size():
+#		print("jobs done: ", jobs_done)
+#		yield(the_owner.get_tree(),"idle_frame")
+	
+	end_time = OS.get_ticks_msec()
+	var secs:float = ( end_time - start_time ) / 1000
+	var mins:float = ( end_time - start_time ) / 60000
+	
+#	print("DONE IN: %d secs" % secs )
+#	print("JOB FINISHED")
+#	Manager.show_message(-1, "[color=lime]JOB FINISHED[/color]")
+	zip.close()
+	Manager.show_message(-1,"Done in: %d%s" % [mins if secs > 59 else secs, "minutes" if secs > 59 else "seconds"] )
+	emit_signal("threads_done")
+
+func _unzip_thread(data):
+	var _unzip := ZIPReader.new()
+	var file := File.new()
+	var error = _unzip.open(data.zip_path)
+	if error != OK:
+#		mutex.lock()
+#		Manager.show_message(-1, "[color=red]Error opening: %s[/color]" % data.zip_path)
+#		mutex.unlock()
+		
+		return
+		
+	for file_name in data.files:
+#		mutex.lock()
+#		print("extracting: %s in thread > %d < " % [file_name, data.id])	
+		var buffer:PoolByteArray = _unzip.read_file(file_name)
+		var err = file.open(data.out+file_name,File.WRITE)
+		if err != OK:
+#			print("error extracting")
+#			mutex.lock()
+#			Manager.show_message(-1, "[color=red]Error extracting: %s[/color]" % (data.out+file_name))
+#			mutex.unlock()
+			return
+		file.store_buffer(buffer)
+		file.close()
+#		print("DONE: %s in thread > %d < " % [file_name, data.id])
+		mutex.lock()
+		_messages.append("Extracted: %s in thread > %d < " % [file_name, data.id])
+#		Manager.main.console_add_text("Extracted: %s in thread > %d < " % [file_name, data.id])
+		mutex.unlock()
+	_unzip.close()
+	jobs_done += 1
+	pass
+
+func _filter_files(from:PoolStringArray) -> Dictionary:
+	
+	var result := {"files":[],"dirs":[]}
+
+	for name in from:
+		var target_name:String = name
+		if target_name.ends_with("/"): 
+			result.dirs.append(target_name)
+		else:
+			result.files.append(target_name)
+
+	return result
+

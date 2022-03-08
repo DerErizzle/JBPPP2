@@ -13,7 +13,7 @@ func screen_just_entered() -> void:
 "
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.0734824, 0.638978, 0.722045, 1 )
+offsets = PoolRealArray( 0.0734824, 0.638978, 0.990415, 1 )
 colors = PoolColorArray( 0.0161016, 0.546246, 0.664844, 1, 0.117466, 0.251855, 0.379688, 1, 0.0632939, 0.0898689, 0.28096, 1, 0.0445917, 0.0339453, 0.246875, 1 )
 
 [sub_resource type="GradientTexture" id=2]
@@ -44,21 +44,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Screen"]
-margin_left = 754.0
-margin_top = 70.0
-margin_right = 1387.0
-margin_bottom = 159.0
-bbcode_enabled = true
-bbcode_text = "[center]Jackbox Party Pack Patcher+ - The All-in-one[/center]"
-text = "Jackbox Party Pack Patcher+ - The All-in-one"
-
 [node name="ScrollContainer" type="ScrollContainer" parent="Screen"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
-margin_top = 60.0
-margin_right = -426.0
+margin_top = 35.0
+margin_right = -32.0
 margin_bottom = -33.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -69,7 +60,7 @@ scroll_horizontal_enabled = false
 [node name="GameContainer" type="GridContainer" parent="Screen/ScrollContainer"]
 custom_constants/vseparation = 102
 custom_constants/hseparation = 215
-columns = 3
+columns = 4
 
 [node name="Console" type="TextEdit" parent="Screen"]
 visible = false
@@ -124,3 +115,5 @@ size_flags_vertical = 3
 alignment = 2
 
 [connection signal="pressed" from="Screen/bt_reset" to="." method="_on_bt_reset_pressed"]
+
+[editable path="Settings"]

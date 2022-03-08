@@ -24,6 +24,8 @@ var tween : Tween = Tween.new()
 var dir: Directory = Directory.new()
 var file: File = File.new()
 
+var main:Main = null
+
 onready var _msgContainer = get_tree().get_nodes_in_group("MC")[0]
 const msg_box_scene = preload("res://stuff/msg_box.tscn")
 func _ready() -> void:
@@ -99,6 +101,7 @@ func _download_necessary_files() -> void:
 	pass
 
 signal locations_downloaded
+var downloaded_locations := false
 func _on_requested_locations(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
 	
 	if response_code != 200:
@@ -109,7 +112,7 @@ func _on_requested_locations(result: int, response_code: int, headers: PoolStrin
 
 	show_message(-1, "[color=yellow]Downloaded locations.json[/color]")
 	emit_signal("locations_downloaded")
-	
+	var downloaded_locations = true
 	
 	pass
 
@@ -159,10 +162,13 @@ func _on_requested_icon(result: int, response_code: int, headers: PoolStringArra
 
 
 func _on_downloaded() -> void:
+	while mod_data.empty():
+		yield(get_tree(),"idle_frame")
 	_check_existing_data()
 	pass
 
 func _check_existing_data() -> void:
+	
 	var file := File.new()
 	var found:bool = false
 	show_message(-1, "Checking for existing data file")
@@ -198,16 +204,13 @@ func save_data() -> void:
 	
 	pass
 
-func create_request(target:Node,completed_function:String, url:String,extra_data:Array=[]) -> void:
+func create_request(target:Node,completed_function:String, url:String,extra_data:Array=[]) -> HTTPRequest:
 	
 	var http:HTTPRequest = HTTPRequest.new()
 	add_child(http)
 	http.connect("request_completed",target,completed_function,extra_data)
 	http.request(url)
-	yield(http,"request_completed")
-	http.queue_free()
-	
-	
+	return http
 	pass
 
 func get_float_from_string(string:String) -> float:

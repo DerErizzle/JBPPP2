@@ -10,6 +10,9 @@ func _ready() -> void:
 	pass
 
 func _on_data_file(existing_data:bool) -> void:
+	
+	
+
 	Manager.show_message(-1, "Checking languages")
 	if  Manager.data_local.has("lang"):
 		Manager.change_screen(Manager.SCREEN.MAIN)
