@@ -35,7 +35,7 @@
             "wtd": ""
         }
     },
-    "Lat. America": {
+    "Español Latino": {
         "country-code": "mx",
         "version": {
             "pp1": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
@@ -72,7 +72,7 @@
             "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES.zip"
         }
     },
-    "Spain": {
+    "Español Castellano": {
         "country-code": "es",
         "version": {
             "pp1": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
@@ -109,7 +109,7 @@
             "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES-SPAIN.zip"
         }
     },
-    "Senyera": {
+    "Català": {
         "country-code": "es",
         "version": {
             "pp1": "https://raw.githubusercontent.com/PauGuri2002/JPP1-CA/master/config.jet",
