@@ -73,7 +73,7 @@ The most imparnt for the program is the locations files, this tell to it where t
 File structure
 ```
     "COUNTRY": {
-        "country-code": "COUNTRY-CODE",
+        "country-file": "COUNTRY-FILE",
         "version": {
             "SHORTNAME": "RAW_GITHUB_URL"
         },
@@ -89,10 +89,12 @@ File structure
 The name of the country - all lowercase
 used for showing the country name in select language screen
 
-* COUNTRY-CODE:
+* COUNTRY-FILE:
 
-The country code, only possible countries/values listed here: https://flagcdn.com/en/codes.json
+The country file inside `flags/file.jpg`
 used to show the country flag in the select language screen
+file must be: `jpg` & size: `160x96`
+
 
 * SHORTNAME:
 
