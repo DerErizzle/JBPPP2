@@ -37,3 +37,8 @@ func configure(lang:String, country_code:String, button_name:String = "") -> voi
 func _on_pressed() -> void:
 	
 	pass
+
+
+func _on_VBoxContainer_resized() -> void:
+	rect_size.y = $VBoxContainer.rect_size.y
+	pass # Replace with function body.

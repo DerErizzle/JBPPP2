@@ -113,7 +113,6 @@ const game_button = preload("res://stuff/tb_game.tscn")
 onready var game_container: GridContainer = find_node("GameContainer")
 
 func _insert_game(data:Dictionary,detected:bool) -> void:
-	print(data)
 	
 	var mod:TextureRect = game_button.instance()
 	
@@ -128,7 +127,8 @@ func _insert_game(data:Dictionary,detected:bool) -> void:
 	var lb_status:Label = mod.get_node("VBoxContainer/lb_status")
 	var lb_version:Label = mod.get_node("VBoxContainer/lb_version")
 	var bt_patch:Button = mod.get_node("VBoxContainer/bt_patch")
-	
+	var bt_run:Button = mod.get_node("bt_run")
+	bt_run.appid = data.appid
 	bt_patch.connect("pressed",self,"_on_update_pressed",[bt_patch, data])
 	
 	if not detected:
@@ -302,9 +302,12 @@ func extract(path:String="", out_path:String="") -> void:
 	var start_time:float = 0
 	var end_time:float = 0
 	
-	for i in range(OS.get_processor_count()):
+	var _proc_count:int = OS.get_processor_count()
+	if _proc_count >= 2: _proc_count -= 1
+	
+	for i in range(_proc_count):
 		_threads.append(Thread.new())
-		print("Thread count: ", _threads.size())
+
 	Manager.main.console_add_text("Thread count: " + str(_threads.size()))
 	jobs_done = 0
 	start_time = OS.get_ticks_msec()
@@ -431,6 +434,7 @@ func _filter_files(from:PoolStringArray) -> Dictionary:
 			result.dirs.append(target_name)
 		else:
 			result.files.append(target_name)
+		
 
 	return result
 

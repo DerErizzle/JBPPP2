@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://JPPP_Theme.tres" type="Theme" id=1]
+[ext_resource path="res://pictures/jbppp.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Mod.gd" type="Script" id=3]
 
 [node name="Mod" type="Panel"]
@@ -16,24 +17,28 @@ anchor_bottom = 1.0
 custom_constants/separation = 10
 
 [node name="tr_flag" type="TextureRect" parent="VBoxContainer"]
-margin_right = 142.0
+margin_right = 135.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
+texture = ExtResource( 2 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_top = 110.0
-margin_right = 142.0
-margin_bottom = 149.0
-text = "Portuguese"
+margin_right = 135.0
+margin_bottom = 209.0
+text = "Portuguese sakldjaskldjlkasjdlas"
 align = 1
 valign = 1
+autowrap = true
 
 [node name="Button" type="Button" parent="VBoxContainer"]
-margin_left = 21.0
-margin_top = 159.0
-margin_right = 121.0
-margin_bottom = 182.0
+margin_left = 17.0
+margin_top = 219.0
+margin_right = 117.0
+margin_bottom = 242.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 4
 text = "Select"
+
+[connection signal="resized" from="VBoxContainer" to="." method="_on_VBoxContainer_resized"]

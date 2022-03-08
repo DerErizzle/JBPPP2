@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://games/unknown.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+var appid:String = \"\"
+
+func _on_bt_run_pressed() -> void:
+	
+	if appid == \"\": 
+		print(\"no appid provided\")
+		return
+	var output := []
+	OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"steam://rungameid/%s\" % appid],false,output)
+	print(\"Clicked: \", output)
+	pass # Replace with function body.
+"
 
 [node name="tb_game" type="TextureRect"]
 margin_right = 80.0
@@ -51,3 +67,12 @@ margin_right = 109.0
 margin_bottom = 56.0
 mouse_default_cursor_shape = 2
 text = "Update Patch"
+
+[node name="bt_run" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+flat = true
+script = SubResource( 1 )
+
+[connection signal="pressed" from="bt_run" to="bt_run" method="_on_bt_run_pressed"]

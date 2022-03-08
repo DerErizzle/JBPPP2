@@ -30,6 +30,14 @@ onready var _msgContainer = get_tree().get_nodes_in_group("MC")[0]
 const msg_box_scene = preload("res://stuff/msg_box.tscn")
 func _ready() -> void:
 	
+	# Configure window ======
+	
+	OS.set_window_title("JBPPP - Jackbox Party Pack Patcher")
+	var win_size := OS.get_screen_size() / 2
+	OS.window_size = win_size
+	OS.center_window()
+	# DONE WINDOW CONFIG ======
+	
 	if not dir.dir_exists("user://icons"):
 		dir.make_dir_recursive("user://icons")
 	
@@ -219,6 +227,9 @@ func get_float_from_string(string:String) -> float:
 	var regex:RegEx = RegEx.new()
 	regex.compile("[+-]?([0-9]*[.])?[0-9]+")
 	var _match:RegExMatch = regex.search(string)
-	result = float(_match.get_string())
+	if _match == null:
+		return -1.0
+	else:
+		result = float(_match.get_string())
 	
 	return result

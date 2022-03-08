@@ -5,7 +5,7 @@ This program is responsible for patching the JPP game series to another language
 ### Supported Languages
 
 * Deustch
-* Spanish (LATAM,Spanish,Catalan)
+* Spanish (LATin AMerica,Spanish,Catalan)
 
 ### For Developers
 
@@ -14,4 +14,5 @@ if you want to add new features to the program just modify them!
 
 ## Info
 
-Developed with Godot Engine v3.4.3.stable.official [242c05d12]
+Developed with a special version of godot engine 3.x (due to ZIPReader implementation)
+https://github.com/nonunknown/godot/tree/zip3x
