@@ -134,7 +134,7 @@ What the Dub, Use Your Words, Quiplash, Quiplash 2 InterLASHional, Fibbage XL ar
       "shortname": "pp5",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp5.png?raw=true",
       "appid": 774461,
-      "appname": "XXXXXXXXXX"
+      "appname": "Geranium"
       "exe": "The Jackbox Party Pack 5.exe",
       "folder": "The Jackbox Party Pack 5",
       "config": "config.jet"
