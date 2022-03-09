@@ -192,7 +192,7 @@ What the Dub, Use Your Words, Quiplash, Quiplash 2 InterLASHional, Fibbage XL ar
       "shortname": "dr2",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/dr2.png?raw=true",
       "appid": 442070,
-      "appname": "XXXXXXXXXX"
+      "appname": "Daisy"
       "exe": "Drawful 2.exe",
       "folder": "Drawful 2",
       "config": "jbg.config.jet"
