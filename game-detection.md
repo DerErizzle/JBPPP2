@@ -124,7 +124,7 @@ What the Dub, Use Your Words, Quiplash, Quiplash 2 InterLASHional, Fibbage XL ar
       "shortname": "pp4",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp4.png?raw=true",
       "appid": 610180,
-      "appname": "Orchid"
+      "appname": "XXXXXXXXXX"
       "exe": "The Jackbox Party Pack 4.exe",
       "folder": "The Jackbox Party Pack 4",
       "config": "config.jet"
