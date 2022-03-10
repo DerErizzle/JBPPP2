@@ -104,7 +104,7 @@ What the Dub, Use Your Words, Quiplash, Quiplash 2 InterLASHional, Fibbage XL ar
       "shortname": "pp2",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp2.png?raw=true",
       "appid": 397460,
-      "appname": "XXXXXXXXXX"
+      "appname": "Lilac"
       "exe": "The Jackbox Party Pack 2.exe",
       "folder": "The Jackbox Party Pack 2",
       "config": "config.jet"
@@ -215,7 +215,6 @@ What the Dub, Use Your Words, Quiplash, Quiplash 2 InterLASHional, Fibbage XL ar
       "folder": "Use Your Words",
       "config": "config.dat",
       "custom_config": true
-      
     },
     {
       "title": "What the Dub",
