@@ -13,7 +13,7 @@ enum ERROR { STEAM_NOT_FOUND, LIBRARY_PATH_NOT_FOUND, CONNECTION_ERROR, IMAGE_CO
 enum SCREEN {MAIN, SETTINGS}
 
 var screen_main:Control
-var last_screen:Control = null
+var last_screen:Control
 var screen_settings:Control
 
 var game_data:Dictionary = {}
@@ -33,7 +33,7 @@ func _ready() -> void:
 	# Configure window ======
 	
 	OS.set_window_title("JBPPP - Jackbox Party Pack Patcher")
-	var win_size := OS.get_screen_size() / 2
+	var win_size :Vector2 = OS.get_screen_size() / 2
 	OS.window_size = win_size
 	OS.center_window()
 	# DONE WINDOW CONFIG ======

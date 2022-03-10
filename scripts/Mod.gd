@@ -11,7 +11,7 @@ class_name Mod
 # Called when the HTTP request is completed.
 func _create_image(flag_name:String):
 	
-	var err := Manager.file.open("user://flags/%s.png" % flag_name,File.READ)
+	var err = Manager.file.open("user://flags/%s.png" % flag_name,File.READ)
 	
 	if err != OK:
 		Manager.show_message(-1, "Error opening: %s.png" % [flag_name])

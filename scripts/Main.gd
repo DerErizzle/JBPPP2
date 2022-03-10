@@ -309,7 +309,6 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	
 	# EXTRACT FILES
 	var game_dir:String = _get_full_path(game.path,game.folder)
-	
 	extract("user://%s.zip" % game.shortname, game_dir )
 	yield(self, "threads_done")
 #	Manager.show_message(-1,"[color=lime]%s[/color]" % str(time_string) )
@@ -340,16 +339,22 @@ func _on_bt_reset_pressed() -> void:
 
 var mutex := Mutex.new()
 var _messages := PoolStringArray()
+var _final_messages := PoolStringArray()
 var jobs_done:int = 0
 signal threads_done
 
 func extract(path:String="", out_path:String="") -> void:
+	console_add_text("Starting extraction process...")
 	var zip := ZIPReader.new()
 	var _threads:Array = []
 	_messages = PoolStringArray()
+	_final_messages = PoolStringArray()
 	var start_time:float = 0
 	var end_time:float = 0
+	
+	mutex.lock()
 	jobs_done = 0
+	mutex.unlock()
 	
 	var _proc_count:int = OS.get_processor_count()
 	if _proc_count >= 2: _proc_count -= 1
@@ -358,7 +363,6 @@ func extract(path:String="", out_path:String="") -> void:
 		_threads.append(Thread.new())
 
 	Manager.main.console_add_text("Thread count: " + str(_threads.size()))
-	jobs_done = 0
 	start_time = OS.get_ticks_msec()
 	#prepare paths:
 	
@@ -409,7 +413,9 @@ func extract(path:String="", out_path:String="") -> void:
 	
 	
 	for i in range(_threads.size()):
-		_threads[i].start(self, "_unzip_thread",{files=split_files[i], id=i, zip_path=path, out=out_path})
+		var thread_data := {files=split_files[i], id=i, zip_path=path, out=out_path}
+		print("here")
+		_threads[i].start(self, "_unzip_thread",thread_data)
 		yield(get_tree(),"idle_frame")
 		pass
 
@@ -418,7 +424,8 @@ func extract(path:String="", out_path:String="") -> void:
 		if _messages.size() > 0:
 			mutex.lock()
 			console_add_text(_messages[0])
-			_messages.remove(0)
+			if _messages.size() > 0:
+				_messages.remove(0)
 			mutex.unlock()
 		
 		for thread in _threads:
@@ -435,7 +442,10 @@ func extract(path:String="", out_path:String="") -> void:
 		mutex.unlock()
 		
 		yield(get_tree(),"idle_frame")
-	
+	if _final_messages.size() > 0:
+		for msg in _final_messages:
+			console_add_text(msg)
+		_final_messages = []
 	
 
 #	while jobs_done < _threads.size():
@@ -461,7 +471,13 @@ func _unzip_thread(data):
 #		mutex.lock()
 #		Manager.show_message(-1, "[color=red]Error opening: %s[/color]" % data.zip_path)
 #		mutex.unlock()
-		
+		mutex.lock()
+		var msg :String = "[color=red]Error opening ZIP in path: %s - Thread: %d[/color]" % [ data.zip_path,data.id]
+		_messages.append(msg)
+		_final_messages.append(msg)
+		jobs_done += 1
+		mutex.unlock()
+		_unzip.close()
 		return
 		
 	for file_name in data.files:
@@ -471,17 +487,20 @@ func _unzip_thread(data):
 		var err = file.open(data.out+file_name,File.WRITE)
 		if err != OK:
 #			print("error extracting")
-#			mutex.lock()
+			mutex.lock()
+			var msg:String = "[color=red]Error extracting: %s in thread: %d[/color]" % [data.out+file_name, data.id]
+			_messages.append(msg)
+			_final_messages.append(msg)
+#			jobs_done += 1
 #			Manager.show_message(-1, "[color=red]Error extracting: %s[/color]" % (data.out+file_name))
-#			mutex.unlock()
-			return
-		file.store_buffer(buffer)
-		file.close()
-#		print("DONE: %s in thread > %d < " % [file_name, data.id])
-		mutex.lock()
-		_messages.append("Extracted: %s/%s in thread > %d < " % [data.out, file_name, data.id])
-#		Manager.main.console_add_text("Extracted: %s in thread > %d < " % [file_name, data.id])
-		mutex.unlock()
+			mutex.unlock()
+			continue
+		else:
+			file.store_buffer(buffer)
+			file.close()
+			mutex.lock()
+			_messages.append("Extracted: %s/%s in thread > %d < " % [data.out, file_name, data.id])
+			mutex.unlock()
 	_unzip.close()
 	mutex.lock()
 	jobs_done += 1
@@ -506,4 +525,11 @@ func _on_bt_lang_pressed() -> void:
 	Manager.data_local.erase("lang")
 	Manager.change_screen(Manager.SCREEN.SETTINGS)
 	Manager.emit_signal("data_file", false) # emit the data file with not found to create another
+	pass # Replace with function body.
+
+
+
+
+func _on_bt_cmd_toggled(button_pressed: bool) -> void:
+	console.visible = button_pressed
 	pass # Replace with function body.

@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://JPPP_Theme.tres" type="Theme" id=1]
 [ext_resource path="res://pictures/flag.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=3]
+[ext_resource path="res://pictures/cmd.png" type="Texture" id=4]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=3]
@@ -94,14 +95,27 @@ margin_bottom = 143.0
 text = "Reset"
 
 [node name="bt_lang" type="Button" parent="Screen"]
-margin_left = 1221.0
-margin_top = 21.0
-margin_right = 1255.0
-margin_bottom = 48.0
+margin_left = 1170.0
+margin_top = 26.0
+margin_right = 1242.0
+margin_bottom = 80.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 1 )
 shortcut_in_tooltip = false
 icon = ExtResource( 2 )
+icon_align = 1
+expand_icon = true
+
+[node name="bt_cmd" type="Button" parent="Screen"]
+margin_left = 1170.0
+margin_top = 92.0
+margin_right = 1242.0
+margin_bottom = 160.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 1 )
+toggle_mode = true
+shortcut_in_tooltip = false
+icon = ExtResource( 4 )
 icon_align = 1
 expand_icon = true
 
@@ -130,5 +144,6 @@ alignment = 2
 
 [connection signal="pressed" from="Screen/bt_reset" to="." method="_on_bt_reset_pressed"]
 [connection signal="pressed" from="Screen/bt_lang" to="." method="_on_bt_lang_pressed"]
+[connection signal="toggled" from="Screen/bt_cmd" to="." method="_on_bt_cmd_toggled"]
 
 [editable path="Settings"]
