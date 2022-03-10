@@ -14,7 +14,7 @@
             "qp2": "https://raw.githubusercontent.com/DerErizzle/Quiplash-2-InterLASHional-German/main/jbg.config.jet",
             "dr2": "https://raw.githubusercontent.com/DerErizzle/Drawful-2-German/main/jbg.config.jet",
             "fxl": "https://raw.githubusercontent.com/Nesjob/Fibbage-XL-German/main/jbg.config.jet",
-            "uyw": "https://raw.githubusercontent.com/Nesjob/Use-Your-Words-German/main/version.dat",
+            "uyw": "https://raw.githubusercontent.com/Nesjob/Use-Your-Words-German/main/config.dat",
             "wtd": ""
         },
         "patch-locale": "DE",
@@ -50,8 +50,8 @@
             "qp2": "https://raw.githubusercontent.com/AkiraArtuhaxis/Quiplash-2-InterLASHional-Latin-American-Spanish/main/Main/jbg.config.jet",
             "dr2": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main/jbg.config.jet",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
-            "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/version.dat",
-            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main/version.dat"
+            "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
+            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main/config.dat"
         },
         "patch-locale": "ES",
         "patch": {
@@ -87,8 +87,8 @@
             "qp2": "",
             "dr2": "",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
-            "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/version.dat",
-            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/version.dat"
+            "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
+            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat"
         },
         "patch-locale": "ES-SPAIN",
         "patch": {
@@ -124,8 +124,8 @@
             "qp2": "",
             "dr2": "",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
-            "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/version.dat",
-            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/version.dat"
+            "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
+            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat"
         },
         "patch-locale": "CA",
         "patch": {
