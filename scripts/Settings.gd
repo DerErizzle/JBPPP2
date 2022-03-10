@@ -11,20 +11,24 @@ func _ready() -> void:
 
 func _on_data_file(existing_data:bool) -> void:
 	
+	print("DONE LOCATIONS")
 	
-
 	Manager.show_message(-1, "Checking languages")
 	if  Manager.data_local.has("lang"):
 		Manager.change_screen(Manager.SCREEN.MAIN)
 	else:
+		for child in $GridContainer.get_children():
+			child.queue_free()
 		for location in Manager.mod_data:
 	#		var patch:String = Manager.mod_data[location]["patch"][game]
 	#		var version:String = Manager.mod_data[location]["version"][game]
-			var country_code:String = Manager.mod_data[location]["country-code"]
+			var country_file:String = Manager.mod_data[location]["country-file"]
+#			if $GridContainer.get_node_or_null(country_file) == null: continue
 			var bt_mod = mod_scene.instance()
 			bt_mod.get_node("VBoxContainer/Button").connect("pressed",self,"_on_selected",[bt_mod, location])
+			bt_mod.name = country_file
 			$GridContainer.add_child(bt_mod)
-			bt_mod.configure(location, country_code, "Select")
+			bt_mod.configure(location, country_file, "Select")
 			
 	#		print("url to > %s <: %s" % [game,patch])
 			pass

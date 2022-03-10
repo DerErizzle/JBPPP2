@@ -40,6 +40,8 @@ func _ready() -> void:
 	
 	if not dir.dir_exists("user://icons"):
 		dir.make_dir_recursive("user://icons")
+	if not dir.dir_exists("user://flags"):
+		dir.make_dir_recursive("user://flags")
 	
 	connect("done_download",self,"_on_downloaded")
 	_download_necessary_files()
@@ -110,17 +112,40 @@ func _download_necessary_files() -> void:
 
 signal locations_downloaded
 var downloaded_locations := false
+var flags_download := PoolIntArray()
 func _on_requested_locations(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
-	
 	if response_code != 200:
 		show_message(ERROR.CONNECTION_ERROR,str({method="_on_requested_locations",res = result, response = response_code, b = body.get_string_from_utf8()}))
 		return
 		
 	mod_data = parse_json(body.get_string_from_utf8())
+	flags_download = [0,0] #index 1 is how many flags where downloaded
+	flags_download[0] = mod_data.size() #index 0 is how many flags there is
+	print("mod size: ", flags_download[0])
 
 	show_message(-1, "[color=yellow]Downloaded locations.json[/color]")
+	
+	for location in mod_data:
+		var flag_nick:String = mod_data[location]["country-file"]
+		
+		if file.file_exists("user://flags/%s.png" % flag_nick):
+			flags_download[1] += 1
+			continue
+		
+		var http := HTTPRequest.new()
+		add_child(http)
+		http.connect("request_completed",self,"_on_requested_flag",[http, flag_nick])
+		http.request("https://github.com/DerErizzle/JBPPP2/blob/data/flags/%s.jpg?raw=true" % flag_nick)
+
+	while not flags_download[1] >= flags_download[0]:
+		print("Flags: [%d/%d]" % [flags_download[1], flags_download[0]])
+		
+		yield(get_tree(),"idle_frame")
+	
+	
+	
 	emit_signal("locations_downloaded")
-	var downloaded_locations = true
+	downloaded_locations = true
 	
 	pass
 
@@ -150,6 +175,7 @@ func _on_requested_games(result: int, response_code: int, headers: PoolStringArr
 	pass
 
 func _on_requested_icon(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray, http:HTTPRequest, title:String, shortname:String) -> void:
+	
 	if response_code != 200:
 		show_message(ERROR.CONNECTION_ERROR,str({method="_on_requested_icon",icon=title,res = result, response = response_code, b = body.get_string_from_utf8()}))
 		return
@@ -163,11 +189,40 @@ func _on_requested_icon(result: int, response_code: int, headers: PoolStringArra
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
 	
-	var err = ResourceSaver.save("user://icons/%s.png" % shortname, texture)
+	var err = ResourceSaver.save("user://%s/%s.png" % ["icons",shortname], texture)
 	if err != OK:
 		show_message(ERROR.IMAGE_CORRUPTED, "Error Saving image: "+title)
 		return
 
+
+func _on_requested_flag(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray, http:HTTPRequest,flag_nick:String) -> void:
+	
+	if response_code != 200:
+		show_message(ERROR.CONNECTION_ERROR,str({method="_on_requested_flag",flag=flag_nick,res = result, response = response_code, b = body.get_string_from_utf8()}))
+		flags_download[1] += 1 # increase flags counter
+		return
+	call_deferred("remove_child",http)
+	
+	var image = Image.new()
+	var error = image.load_jpg_from_buffer(body)
+	if error != OK:
+		show_message(ERROR.IMAGE_CORRUPTED, "Error creating image: "+ flag_nick)
+		flags_download[1] += 1 # increase flags counter
+		return
+	
+	
+	var texture = ImageTexture.new()
+	texture.create_from_image(image)
+	
+	
+	
+	var err = ResourceSaver.save("user://%s/%s.png" % ["flags",flag_nick], texture)
+	if err != OK:
+		show_message(ERROR.IMAGE_CORRUPTED, "Error Saving image: "+flag_nick)
+		flags_download[1] += 1 # increase flags counter
+		return
+	flags_download[1] += 1 # increase flags counter
+	pass
 
 func _on_downloaded() -> void:
 	while mod_data.empty():
@@ -192,6 +247,10 @@ func _check_existing_data() -> void:
 		show_message(-1,"Existing data loaded " )
 		found = true
 		pass
+	
+	while not downloaded_locations:
+		print("Waiting flags")
+		yield(get_tree(),"idle_frame")
 	emit_signal("data_file",found)
 	file.close()
 	pass

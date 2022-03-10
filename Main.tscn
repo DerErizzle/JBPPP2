@@ -1,5 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://JPPP_Theme.tres" type="Theme" id=1]
+[ext_resource path="res://pictures/flag.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=3]
 [ext_resource path="res://Settings.tscn" type="PackedScene" id=5]
 
@@ -91,6 +93,18 @@ margin_right = 1087.0
 margin_bottom = 143.0
 text = "Reset"
 
+[node name="bt_lang" type="Button" parent="Screen"]
+margin_left = 1221.0
+margin_top = 21.0
+margin_right = 1255.0
+margin_bottom = 48.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 1 )
+shortcut_in_tooltip = false
+icon = ExtResource( 2 )
+icon_align = 1
+expand_icon = true
+
 [node name="Settings" parent="." instance=ExtResource( 5 )]
 
 [node name="MessageContainer" type="ScrollContainer" parent="." groups=["MC"]]
@@ -115,5 +129,6 @@ size_flags_vertical = 3
 alignment = 2
 
 [connection signal="pressed" from="Screen/bt_reset" to="." method="_on_bt_reset_pressed"]
+[connection signal="pressed" from="Screen/bt_lang" to="." method="_on_bt_lang_pressed"]
 
 [editable path="Settings"]

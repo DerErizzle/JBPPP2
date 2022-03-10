@@ -10,7 +10,6 @@ var file := File.new()
 
 var drive_letter:String = ""
 var steam_games_dir:String = ""
-var found_games_data:Array = [] # this is a multidimentional array = [ [0,1], [0,1] ] -> 0 is appid and 1 is game update version
 
 func _ready() -> void:
 	Manager.main = self
@@ -79,40 +78,78 @@ func _detect_steam_games() -> void:
 	file.close()
 	
 	# Find the Games and APPID in the contents
-	
+	var comp_groups:String ="\\\"\\w\\\"\\n\\t{\\n(?<content>(.*\\n(?!\\t}).)+)"
+	var comp_ids:String = "(?:\\t\\t\\t\"(?<appid>\\w+)\"\\t\\t\"(?<update>\\w+)\"\\n)"
+	var comp_path:String = "\\t\\t\"path\"\\t\\t\"(?<path>.*)\""
 	var regex := RegEx.new()
-	regex.compile("(?:\\t\\t\\t\"(?<appid>\\w+)\"\\t\\t\"(?<update>\\w+)\"\\n)")
+	var data_arr := []
 	
-	var results:Array = regex.search_all(contents)
 	
-	for m in results:
-		var result = m.strings
-		found_games_data.append( [result[1], result[2]] )
+	# Get the groups of VDF
+	regex.compile(comp_groups)
+	var groups:Array = regex.search_all(contents)
+	var groups_match := []
+	for m in groups:
+		groups_match.append(m.get_string("content"))
+		print("GROUP: \n", m.get_string("content"))
+#		groups_match.append(group)
 	
-	# Actually detect games
 	
-	var game_data:Array = Manager.game_data.games
+	# get the necessary data
 	
-	for game in game_data:
+	for i in range(groups_match.size()):
+		regex.compile(comp_ids)
+		var ids:Array = regex.search_all(groups_match[i])
+		var ids_match := []
+		for m in ids:
+			ids_match.append(m.get_string("appid"))
+		data_arr.append(ids_match)
+		
+		regex.compile(comp_path)
+		var paths:Array = regex.search_all(groups_match[i])
+		var paths_match := []
+		for m in paths:
+			paths_match.append(m.get_string("path"))
+		data_arr.append(paths_match)
+		pass
+	
+	# data_arr structure
+	# [ [appid,appid], [path], [appid,appid], [path]....  ]
+
+#	#	# Actually detect games
+
+	for index in Manager.game_data.games.size():
+		var game = Manager.game_data.games[index]
 		print("\nTrying to detect: " + game.title)
-		var game_detected:bool = false
-		for arr in found_games_data:
-			if str(game.appid) == str(arr[0]):
-				Manager.show_message(-1, "[color=lime]Detected: %s[/color]" % game.title)
-				game_detected = true
-		_insert_game(game,game_detected)
+#		var game_detected:bool = false
+		for i in range(0, data_arr.size(), 2): # run the array only in appids array
+			for appid in data_arr[i]:
+				if str(game.appid) == str(appid):
+					Manager.game_data.games[index]["found"] = true
+					Manager.game_data.games[index]["path"] = str(data_arr[i+1][0])
+				pass
+			pass
 		
-
-
-		
-		
+	print("done")
 	
+	print(Manager.game_data.games)
+	
+	for game in Manager.game_data.games:
+		_insert_game(game)
+		pass
+	
+#		for arr in found_games_data:
+#			if str(game.appid) == str(arr[0]):
+#				Manager.show_message(-1, "[color=lime]Detected: %s[/color]" % game.title)
+#				game_detected = true
+#		_insert_game(game,game_detected)
+
 	pass
 
 const game_button = preload("res://stuff/tb_game.tscn")
 onready var game_container: GridContainer = find_node("GameContainer")
 
-func _insert_game(data:Dictionary,detected:bool) -> void:
+func _insert_game(data:Dictionary) -> void:
 	
 	var mod:TextureRect = game_button.instance()
 	
@@ -131,7 +168,8 @@ func _insert_game(data:Dictionary,detected:bool) -> void:
 	bt_run.appid = data.appid
 	bt_patch.connect("pressed",self,"_on_update_pressed",[bt_patch, data])
 	
-	if not detected:
+	
+	if not data.has("found"):
 		bt_patch.disabled = true
 		lb_version.text = "---"
 		lb_status.text = ""
@@ -195,16 +233,21 @@ func _on_version_requested(result: int, response_code: int, headers: PoolStringA
 	emit_signal("_version_request_done")
 	pass
 
-#func _on_game_button_pressed(data:Dictionary) -> void:
-#	data.version = _get_game_version(data)
-#	Manager.set_game_data(data)
-#	Manager.change_screen(Manager.SCREEN.CONFIG)
-#	print("Changin")
-#	pass
+func _get_full_path(data_path:String, data_folder:String, data_file:String="") -> String:
+	var path:String = ""	
+	
+	var win_path:String = data_path.replace("\\","/")
+	var optional:String = "/%s" % data_file if data_file != "" else ""
+	path = win_path.replace("//","/") + ("/%s/%s" % ["steamapps/common", data_folder]) + optional
+	path = path.replace("/","\\")
+	
+	return path
+
 
 func _get_game_version(data:Dictionary) -> String:
 	print("Getting game version")
-	var game_path :String = steam_games_dir + data.folder + "\\%s" % data.config
+	
+	var game_path = _get_full_path(data.path, data.folder, data.config)
 	
 	var err = file.open(game_path, File.READ)
 	
@@ -228,7 +271,7 @@ func screen_just_entered() -> void:
 	var err = _detect_drive_letter()
 	
 	if err != OK:
-		Manager.show_message(err)
+		Manager.show_message(-1, "Error detecting drive letter: " + str(err) )
 		return
 	
 	_detect_steam_games()
@@ -245,12 +288,15 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	_zip_game = game
 	var url_mod:String = Manager.mod_data[Manager.data_local.lang]["patch"][game.shortname]
 	var http:HTTPRequest = Manager.create_request(self,"_on_downloaded_zip",url_mod)
-	console_add_text("Downloading patch...")	
+	console_add_text("Downloading patch...")
+	var last_percent:int = -1
 	while not _is_download_done:
 		var request_size:int = http.get_body_size()
 		var downloaded_bytes:int = http.get_downloaded_bytes()
 		var percent := int(downloaded_bytes*100/request_size)
-		console_add_text("%d%%" % [percent])
+		if percent > last_percent:
+			console_add_text("%d%%" % [percent])
+		last_percent = percent
 		yield(get_tree().create_timer(.1,false),"timeout")
 		pass
 	button.disabled = true
@@ -262,7 +308,8 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	Manager.show_message(-1, "[color=lime]Download finished successfully![/color]")
 	
 	# EXTRACT FILES
-	var game_dir:String = steam_games_dir + game.folder
+	var game_dir:String = _get_full_path(game.path,game.folder)
+	
 	extract("user://%s.zip" % game.shortname, game_dir )
 	yield(self, "threads_done")
 #	Manager.show_message(-1,"[color=lime]%s[/color]" % str(time_string) )
@@ -299,8 +346,10 @@ signal threads_done
 func extract(path:String="", out_path:String="") -> void:
 	var zip := ZIPReader.new()
 	var _threads:Array = []
+	_messages = PoolStringArray()
 	var start_time:float = 0
 	var end_time:float = 0
+	jobs_done = 0
 	
 	var _proc_count:int = OS.get_processor_count()
 	if _proc_count >= 2: _proc_count -= 1
@@ -363,15 +412,28 @@ func extract(path:String="", out_path:String="") -> void:
 		_threads[i].start(self, "_unzip_thread",{files=split_files[i], id=i, zip_path=path, out=out_path})
 		yield(get_tree(),"idle_frame")
 		pass
-#
-	for thread in _threads:
+
+
+	while true:
 		if _messages.size() > 0:
 			mutex.lock()
 			console_add_text(_messages[0])
 			_messages.remove(0)
 			mutex.unlock()
-		thread.wait_to_finish()
-		console_add_text("waiting thread: " + str(thread))
+		
+		for thread in _threads:
+			if thread.is_alive(): continue
+			
+			elif thread.is_active(): 
+				thread.wait_to_finish()
+		
+		mutex.lock()
+		print("jobs done: ", jobs_done)
+		if jobs_done >= _threads.size():
+			break
+		
+		mutex.unlock()
+		
 		yield(get_tree(),"idle_frame")
 	
 	
@@ -417,11 +479,13 @@ func _unzip_thread(data):
 		file.close()
 #		print("DONE: %s in thread > %d < " % [file_name, data.id])
 		mutex.lock()
-		_messages.append("Extracted: %s in thread > %d < " % [file_name, data.id])
+		_messages.append("Extracted: %s/%s in thread > %d < " % [data.out, file_name, data.id])
 #		Manager.main.console_add_text("Extracted: %s in thread > %d < " % [file_name, data.id])
 		mutex.unlock()
 	_unzip.close()
+	mutex.lock()
 	jobs_done += 1
+	mutex.unlock()
 	pass
 
 func _filter_files(from:PoolStringArray) -> Dictionary:
@@ -438,3 +502,8 @@ func _filter_files(from:PoolStringArray) -> Dictionary:
 
 	return result
 
+func _on_bt_lang_pressed() -> void:
+	Manager.data_local.erase("lang")
+	Manager.change_screen(Manager.SCREEN.SETTINGS)
+	Manager.emit_signal("data_file", false) # emit the data file with not found to create another
+	pass # Replace with function body.
