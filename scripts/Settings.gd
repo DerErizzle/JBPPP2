@@ -5,7 +5,6 @@ class_name Settings
 const mod_scene = preload("res://stuff/Mod.tscn")
 
 func _ready() -> void:
-	Manager.connect("data_file",self,"_on_data_file")
 	
 	pass
 

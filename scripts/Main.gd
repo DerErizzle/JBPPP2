@@ -11,9 +11,6 @@ var file := File.new()
 var drive_letter:String = ""
 var steam_games_dir:String = ""
 
-func _ready() -> void:
-	Manager.main = self
-
 var _line:int = 0
 func console_add_text(message:String) -> void:
 	
@@ -278,6 +275,7 @@ func screen_just_entered() -> void:
 	pass
 
 signal _zip_downloaded
+signal threads_done
 var _is_download_done:bool = false
 var _zip_failed:bool = false
 var _zip_game:Dictionary = {}
@@ -309,10 +307,17 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	
 	# EXTRACT FILES
 	var game_dir:String = _get_full_path(game.path,game.folder)
-	extract("user://%s.zip" % game.shortname, game_dir )
+	
+	var zip_script = load("res://scripts/ZipManager.cs")
+	var zip_man = zip_script.new()
+	var path_file = ProjectSettings.globalize_path("user://")+"%s.zip" % game.shortname
+	game_dir = game_dir.replace("/","\\")
+	path_file = path_file.replace("/","\\")
+	print("changed")
+	zip_man.Extract(self,path_file, game_dir )
+	
 	yield(self, "threads_done")
-#	Manager.show_message(-1,"[color=lime]%s[/color]" % str(time_string) )
-	# DONE
+
 	console.visible = false
 	console.text = ""
 	_detect_steam_games() # update the datas
@@ -334,192 +339,6 @@ func _on_downloaded_zip(result: int, response_code: int, headers: PoolStringArra
 func _on_bt_reset_pressed() -> void:
 	_detect_steam_games()
 	pass # Replace with function body.
-
-# MULTI-THREADED  EXTRACTING =================================
-
-var mutex := Mutex.new()
-var _messages := PoolStringArray()
-var _final_messages := PoolStringArray()
-var jobs_done:int = 0
-signal threads_done
-
-func extract(path:String="", out_path:String="") -> void:
-	console_add_text("Starting extraction process...")
-	var zip := ZIPReader.new()
-	var _threads:Array = []
-	_messages = PoolStringArray()
-	_final_messages = PoolStringArray()
-	var start_time:float = 0
-	var end_time:float = 0
-	
-	mutex.lock()
-	jobs_done = 0
-	mutex.unlock()
-	
-	var _proc_count:int = OS.get_processor_count()
-	if _proc_count >= 2: _proc_count -= 1
-	
-	for i in range(_proc_count):
-		_threads.append(Thread.new())
-
-	Manager.main.console_add_text("Thread count: " + str(_threads.size()))
-	start_time = OS.get_ticks_msec()
-	#prepare paths:
-	
-	if "\\" in out_path:
-		out_path = out_path.replace("\\","/")
-	if not out_path.ends_with("/"):
-		out_path += "/"
-	
-	
-	# DEBUG VARS DELETEME
-#	path = "C:/Users/nonunknown/AppData/Roaming/Godot/app_userdata/JPPP/pp2.zip"
-#	out_path = "C:/Users/nonunknown/AppData/Roaming/Godot/app_userdata/JPPP/test/"
-	# END DEBUG
-	
-	var err = zip.open(path)
-	
-	if err != OK:
-		print("ERROR opening: ", err)
-		Manager.show_message(-1, "[color=red]Error opening zip: %d[/color]" % err)
-	
-	var files_name :PoolStringArray = zip.get_files()
-	var data:Dictionary = _filter_files(files_name)
-	
-	#create dirs
-	var dir := Directory.new()
-	for dir_path in data.dirs:
-		dir.make_dir_recursive(out_path + dir_path)
-	
-	#split the files into parts to use in the threads
-	var num_files:int = data.files.size()
-	Manager.main.console_add_text("Number of files: " + str(num_files))
-	print("Number of files: ", num_files)
-	var max_files:int = int(num_files/_threads.size())
-	print("Division: ", max_files)
-	var the_files:PoolStringArray = data.files
-	var split_files:Array = []
-	var target:int = 0
-	
-	# mount array
-	for i in range(_threads.size()):
-		split_files.append([])
-	
-	#split the filenames
-	for i in range(num_files):
-		var arr_idx:int = i % _threads.size()
-		split_files[arr_idx].append(the_files[i])
-		pass
-	
-	
-	for i in range(_threads.size()):
-		var thread_data := {files=split_files[i], id=i, zip_path=path, out=out_path}
-		print("here")
-		_threads[i].start(self, "_unzip_thread",thread_data)
-		yield(get_tree(),"idle_frame")
-		pass
-
-
-	while true:
-		if _messages.size() > 0:
-			mutex.lock()
-			console_add_text(_messages[0])
-			if _messages.size() > 0:
-				_messages.remove(0)
-			mutex.unlock()
-		
-		for thread in _threads:
-			if thread.is_alive(): continue
-			
-			elif thread.is_active(): 
-				thread.wait_to_finish()
-		
-		mutex.lock()
-		print("jobs done: ", jobs_done)
-		if jobs_done >= _threads.size():
-			break
-		
-		mutex.unlock()
-		
-		yield(get_tree(),"idle_frame")
-	if _final_messages.size() > 0:
-		for msg in _final_messages:
-			console_add_text(msg)
-		_final_messages = []
-	
-
-#	while jobs_done < _threads.size():
-#		print("jobs done: ", jobs_done)
-#		yield(the_owner.get_tree(),"idle_frame")
-	
-	end_time = OS.get_ticks_msec()
-	var secs:float = ( end_time - start_time ) / 1000
-	var mins:float = ( end_time - start_time ) / 60000
-	
-#	print("DONE IN: %d secs" % secs )
-#	print("JOB FINISHED")
-#	Manager.show_message(-1, "[color=lime]JOB FINISHED[/color]")
-	zip.close()
-	Manager.show_message(-1,"Done in: %d%s" % [mins if secs > 59 else secs, "minutes" if secs > 59 else "seconds"] )
-	emit_signal("threads_done")
-
-func _unzip_thread(data):
-	var _unzip := ZIPReader.new()
-	var file := File.new()
-	var error = _unzip.open(data.zip_path)
-	if error != OK:
-#		mutex.lock()
-#		Manager.show_message(-1, "[color=red]Error opening: %s[/color]" % data.zip_path)
-#		mutex.unlock()
-		mutex.lock()
-		var msg :String = "[color=red]Error opening ZIP in path: %s - Thread: %d[/color]" % [ data.zip_path,data.id]
-		_messages.append(msg)
-		_final_messages.append(msg)
-		jobs_done += 1
-		mutex.unlock()
-		_unzip.close()
-		return
-		
-	for file_name in data.files:
-#		mutex.lock()
-#		print("extracting: %s in thread > %d < " % [file_name, data.id])	
-		var buffer:PoolByteArray = _unzip.read_file(file_name)
-		var err = file.open(data.out+file_name,File.WRITE)
-		if err != OK:
-#			print("error extracting")
-			mutex.lock()
-			var msg:String = "[color=red]Error extracting: %s in thread: %d[/color]" % [data.out+file_name, data.id]
-			_messages.append(msg)
-			_final_messages.append(msg)
-#			jobs_done += 1
-#			Manager.show_message(-1, "[color=red]Error extracting: %s[/color]" % (data.out+file_name))
-			mutex.unlock()
-			continue
-		else:
-			file.store_buffer(buffer)
-			file.close()
-			mutex.lock()
-			_messages.append("Extracted: %s/%s in thread > %d < " % [data.out, file_name, data.id])
-			mutex.unlock()
-	_unzip.close()
-	mutex.lock()
-	jobs_done += 1
-	mutex.unlock()
-	pass
-
-func _filter_files(from:PoolStringArray) -> Dictionary:
-	
-	var result := {"files":[],"dirs":[]}
-
-	for name in from:
-		var target_name:String = name
-		if target_name.ends_with("/"): 
-			result.dirs.append(target_name)
-		else:
-			result.files.append(target_name)
-		
-
-	return result
 
 func _on_bt_lang_pressed() -> void:
 	Manager.data_local.erase("lang")

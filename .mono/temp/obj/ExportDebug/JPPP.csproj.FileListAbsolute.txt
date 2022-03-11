@@ -1,0 +1,13 @@
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportDebug\JPPP.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportDebug\JPPP.pdb
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportDebug\DotNetZip.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportDebug\DotNetZip.pdb
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportDebug\DotNetZip.xml
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.csproj.AssemblyReference.cache
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.AssemblyInfoInputs.cache
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.AssemblyInfo.cs
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.csproj.CoreCompileInputs.cache
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.csproj.CopyComplete
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportDebug\JPPP.pdb

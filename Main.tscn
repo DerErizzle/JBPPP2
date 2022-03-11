@@ -23,7 +23,7 @@ colors = PoolColorArray( 0.0161016, 0.546246, 0.664844, 1, 0.117466, 0.251855, 0
 gradient = SubResource( 1 )
 width = 64
 
-[node name="Main" type="Control"]
+[node name="Main" type="Control" groups=["MAIN"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
@@ -103,7 +103,6 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 1 )
 shortcut_in_tooltip = false
 icon = ExtResource( 2 )
-icon_align = 1
 expand_icon = true
 
 [node name="bt_cmd" type="Button" parent="Screen"]
@@ -116,7 +115,6 @@ theme = ExtResource( 1 )
 toggle_mode = true
 shortcut_in_tooltip = false
 icon = ExtResource( 4 )
-icon_align = 1
 expand_icon = true
 
 [node name="Settings" parent="." instance=ExtResource( 5 )]

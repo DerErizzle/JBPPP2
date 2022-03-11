@@ -24,7 +24,7 @@ var tween : Tween = Tween.new()
 var dir: Directory = Directory.new()
 var file: File = File.new()
 
-var main:Main = null
+onready var main:Main = get_tree().get_nodes_in_group("MAIN")[0]
 
 onready var _msgContainer = get_tree().get_nodes_in_group("MC")[0]
 const msg_box_scene = preload("res://stuff/msg_box.tscn")
@@ -49,6 +49,7 @@ func _ready() -> void:
 	screen_main = get_tree().root.get_node("Main/Screen")
 	screen_settings = get_tree().root.get_node("Main/Settings")
 	last_screen = screen_settings
+	connect("data_file",screen_settings,"_on_data_file")
 	
 	add_child(tween)
 
