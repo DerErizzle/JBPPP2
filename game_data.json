@@ -5,6 +5,7 @@
       "shortname": "pp1",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp1.png?raw=true",
       "appid": 331670,
+      "appname": "Feverfew",
       "exe": "The Jackbox Party Pack.exe",
       "folder": "The Jackbox Party Pack",
       "config": "config.jet"
@@ -14,6 +15,7 @@
       "shortname": "pp2",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp2.png?raw=true",
       "appid": 397460,
+      "appname": "Lilac",
       "exe": "The Jackbox Party Pack 2.exe",
       "folder": "The Jackbox Party Pack 2",
       "config": "config.jet"
@@ -23,6 +25,7 @@
       "shortname": "pp3",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp3.png?raw=true",
       "appid": 434170,
+      "appname": "Orchid",
       "exe": "The Jackbox Party Pack 3.exe",
       "folder": "The Jackbox Party Pack 3",
       "config": "config.jet"
@@ -41,6 +44,7 @@
       "shortname": "pp5",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp5.png?raw=true",
       "appid": 774461,
+      "appname": "Geranium",
       "exe": "The Jackbox Party Pack 5.exe",
       "folder": "The Jackbox Party Pack 5",
       "config": "config.jet"
@@ -51,7 +55,6 @@
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp6.png?raw=true",
       "appid": 1005300,
       "exe": "The Jackbox Party Pack 6.exe",
-      "folder": "The Jackbox Party Pack 6",
       "config": "config.jet"
     },
     {
@@ -59,6 +62,7 @@
       "shortname": "pp7",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp7.png?raw=true",
       "appid": 1211630,
+      "appname": "7fb6ce95c6d04a44a55fef16ea0db4c9",
       "exe": "The Jackbox Party Pack 7.exe",
       "folder": "The Jackbox Party Pack 7",
       "config": "config.jet"
@@ -68,6 +72,7 @@
       "shortname": "pp8",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp8.png?raw=true",
       "appid": 1552350,
+      "appname": "67003fc4eaa444608acf083a08dc907e",
       "exe": "The Jackbox Party Pack 8.exe",
       "folder": "The Jackbox Party Pack 8",
       "config": "config.jet"
@@ -95,6 +100,7 @@
       "shortname": "dr2",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/dr2.png?raw=true",
       "appid": 442070,
+      "appname": "Daisy",
       "exe": "Drawful 2.exe",
       "folder": "Drawful 2",
       "config": "jbg.config.jet"
@@ -117,7 +123,6 @@
       "folder": "Use Your Words",
       "config": "config.dat",
       "custom_config": true
-      
     },
     {
       "title": "What the Dub",

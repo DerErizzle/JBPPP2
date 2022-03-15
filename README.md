@@ -26,6 +26,10 @@ the raw github url to the icons/image.png
 steam's game id, can be easily got by going to the game on steam and right click -> properties
 used for identifying the game in the program
 
+* appname:
+
+Epic Games's game id, used for detection, note: Epic games will be only be detected if you dont have the game on steam
+
 * exe:
 
 The name of the executable file inside steamapps/common/GAMENAME/GAMENAME.exe
@@ -45,7 +49,7 @@ but the modder can create one, which is used to keep track of the game version
 
 **Custom configuration file**
 
-This file is used to keep track of the patch version, must be located under GAMENAME/config.dat
+This file is used to keep track of the patch version, must be located under `GAMENAME/config.dat`
 the content of the file must be in JSON:
 
 ```
