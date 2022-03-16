@@ -81,7 +81,7 @@
             "pp6_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-6-Spanish/main/Main/config.jet",
             "pp7_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/main/Main/config.jet",
             "pp8_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/main/Main/config.jet",
-            "dr2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main/jbg.config.jet"
+            "dr2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main[EGS]/jbg.config.jet"
         },
         "patch-locale": "ES",
         "patch": {
@@ -107,8 +107,8 @@
             "pp5_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-5-Spanish/releases/latest/download/JPP5-ES.zip",
             "pp6_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-6-Spanish/releases/latest/download/JPP6-ES.zip",
             "pp7_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/releases/latest/download/JPP7-ES.zip",
-            "pp8_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/releases/latest/download/JPP8-ES.zip",
-            "dr2_epic": "https://github.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/releases/latest/download/DF2-LAT.zip"
+            "pp8_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/releases/latest/download/JPP8-ES-EGS.zip",
+            "dr2_epic": "https://github.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/releases/latest/download/DF2-ES-EGS.zip"
         }
     },
     "Español Castellano": {
@@ -123,8 +123,8 @@
             "pp7": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/main/Main/config.jet",
             "pp8": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/main/Main/config.jet",
             "qp1": "https://raw.githubusercontent.com/AkiraArtuhaxis/Quiplash-Quip-Pack-1-Spanish/main/Main[Spain]/jbg.config.jet",
-            "qp2": "",
-            "dr2": "",
+            "qp2": "https://raw.githubusercontent.com/AkiraArtuhaxis/Quiplash-2-InterLASHional-Latin-American-Spanish/main/Main[Spain]/jbg.config.jet",
+            "dr2": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main[Spain]/jbg.config.jet",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
             "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
             "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat",
@@ -137,7 +137,7 @@
             "pp6_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-6-Spanish/main/Main/config.jet",
             "pp7_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/main/Main/config.jet",
             "pp8_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/main/Main/config.jet",
-            "dr2_epic": ""
+            "dr2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main[EGS][Spain]/jbg.config.jet"
         },
         "patch-locale": "ES-SPAIN",
         "patch": {
@@ -150,8 +150,8 @@
             "pp7": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/releases/latest/download/JPP7-ES.zip",
             "pp8": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/releases/latest/download/JPP8-ES.zip",
             "qp1": "https://github.com/AkiraArtuhaxis/Quiplash-Quip-Pack-1-Spanish/releases/latest/download/QUIP-ES-SPAIN.zip",
-            "qp2": "",
-            "dr2": "",
+            "qp2": "https://github.com/AkiraArtuhaxis/Quiplash-2-InterLASHional-Latin-American-Spanish/releases/latest/download/Q2INT-ES-SPAIN.zip",
+            "dr2": "https://github.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/releases/latest/download/DF2-ES-SPAIN.zip",
             "fxl": "https://github.com/AkiraArtuhaxis/Fibbage-XL-Spanish/releases/latest/download/FBXL-ES.zip",
             "uyw": "https://github.com/AkiraArtuhaxis/Use-Your-Words-Spanish/releases/latest/download/UYW-ES.zip",
             "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES-SPAIN.zip",
@@ -163,8 +163,8 @@
             "pp5_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-5-Spanish/releases/latest/download/JPP5-ES.zip",
             "pp6_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-6-Spanish/releases/latest/download/JPP6-ES.zip",
             "pp7_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/releases/latest/download/JPP7-ES.zip",
-            "pp8_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/releases/latest/download/JPP8-ES.zip",
-            "dr2_epic": ""
+            "pp8_epic": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/releases/latest/download/JPP8-ES-EGS.zip",
+            "dr2_epic": "https://github.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/releases/latest/download/DF2-ES-EGS-SPAIN.zip"
         }
     },
     "Català": {
