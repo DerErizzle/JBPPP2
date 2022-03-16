@@ -32,7 +32,15 @@
             "dr2": "https://github.com/DerErizzle/Drawful-2-German/releases/latest/download/Drawful-2-German.zip",
             "fxl": "https://github.com/Nesjob/Fibbage-XL-German/releases/latest/download/Fibbage-XL-German.zip",
             "uyw": "https://github.com/Nesjob/Use-Your-Words-German/releases/latest/download/Use-Your-Words-German.zip",
-            "wtd": ""
+            "wtd": "",       
+            
+            "pp1_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp3_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp5_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp7_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp8_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "dr2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip"
         }
     },
     "Español Latino": {
@@ -69,7 +77,15 @@
             "dr2": "https://github.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/releases/latest/download/DF2-LAT.zip",
             "fxl": "https://github.com/AkiraArtuhaxis/Fibbage-XL-Spanish/releases/latest/download/FBXL-ES.zip",
             "uyw": "https://github.com/AkiraArtuhaxis/Use-Your-Words-Spanish/releases/latest/download/UYW-ES.zip",
-            "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES.zip"
+            "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES.zip",
+            
+            "pp1_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp3_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp5_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp7_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp8_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "dr2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip"
         }
     },
     "Español Castellano": {
@@ -93,10 +109,14 @@
         "patch-locale": "ES-SPAIN",
         "patch": {
             "pp1": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/releases/latest/download/JPP1-ES.zip",
+            "pp1_epic": "",
             "pp2": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/releases/latest/download/JPP2-ES.zip",
+            "pp2_epic": "",
             "pp3": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-3-Spanish/releases/latest/download/JPP3-ES-SPAIN.zip",
+            "pp3_epic": "",
             "pp4": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-4-Spanish/releases/latest/download/JPP4-ES.zip",
             "pp5": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-5-Spanish/releases/latest/download/JPP5-ES.zip",
+            "pp5_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
             "pp6": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-6-Spanish/releases/latest/download/JPP6-ES.zip",
             "pp7": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/releases/latest/download/JPP7-ES.zip",
             "pp8": "https://github.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/releases/latest/download/JPP8-ES.zip",
@@ -106,7 +126,15 @@
             "dr2": "",
             "fxl": "https://github.com/AkiraArtuhaxis/Fibbage-XL-Spanish/releases/latest/download/FBXL-ES.zip",
             "uyw": "https://github.com/AkiraArtuhaxis/Use-Your-Words-Spanish/releases/latest/download/UYW-ES.zip",
-            "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES-SPAIN.zip"
+            "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES-SPAIN.zip",
+            
+            "pp1_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp3_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp5_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp7_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp8_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "dr2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip"
         }
     },
     "Català": {
@@ -143,7 +171,15 @@
             "dr2": "",
             "fxl": "https://github.com/AkiraArtuhaxis/Fibbage-XL-Spanish/releases/latest/download/FBXL-ES.zip",
             "uyw": "https://github.com/AkiraArtuhaxis/Use-Your-Words-Spanish/releases/latest/download/UYW-ES.zip",
-            "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES-SPAIN.zip"
+            "wtd": "https://github.com/AkiraArtuhaxis/What-The-Dub-Spanish/releases/latest/download/WTD-ES-SPAIN.zip",
+            
+            "pp1_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp3_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp5_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp7_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "pp8_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip",
+            "dr2_epic": "https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-zip-file.zip"
         }
     }
 }
