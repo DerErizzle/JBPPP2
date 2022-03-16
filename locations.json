@@ -25,7 +25,7 @@
             "pp6_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-6-German/main/config.jet",
             "pp7_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-7-German/main/config.jet",
             "pp8_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-8-German/main/config.jet",
-            "dr2_epic": "https://raw.githubusercontent.com/DerErizzle/Drawful-2-German/main/jbg.config.jet"
+            "dr2_epic": ""
         },
         "patch-locale": "DE",
         "patch": {
@@ -52,7 +52,7 @@
             "pp6_epic": "https://github.com/Nesjob/The-Jackbox-Party-Pack-6-German/releases/latest/download/The-Jackbox-Party-Pack-6-German.zip",
             "pp7_epic": "https://github.com/Nesjob/The-Jackbox-Party-Pack-7-German/releases/latest/download/The-Jackbox-Party-Pack-7-German.zip",
             "pp8_epic": "https://github.com/DerErizzle/The-Jackbox-Party-Pack-8-German-EG/releases/latest/download/The-Jackbox-Party-Pack-8-German-EG.zip",
-            "dr2_epic": "https://github.com/DerErizzle/Drawful-2-German/releases/latest/download/Drawful-2-German.zip"
+            "dr2_epic": ""
         }
     },
     "Español Latino": {
