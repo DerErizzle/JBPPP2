@@ -35,6 +35,7 @@
       "shortname": "pp4",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp4.png?raw=true",
       "appid": 610180,
+      "appname": "Snowdrop",
       "exe": "The Jackbox Party Pack 4.exe",
       "folder": "The Jackbox Party Pack 4",
       "config": "config.jet"
@@ -54,6 +55,7 @@
       "shortname": "pp6",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp6.png?raw=true",
       "appid": 1005300,
+      "appname": "Astrapia",
       "exe": "The Jackbox Party Pack 6.exe",
       "config": "config.jet"
     },
