@@ -15,7 +15,15 @@
             "dr2": "https://raw.githubusercontent.com/DerErizzle/Drawful-2-German/main/jbg.config.jet",
             "fxl": "https://raw.githubusercontent.com/Nesjob/Fibbage-XL-German/main/jbg.config.jet",
             "uyw": "https://raw.githubusercontent.com/Nesjob/Use-Your-Words-German/main/config.dat",
-            "wtd": ""
+            "wtd": "",
+            
+            "pp1_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-1-German/main/config.jet",
+            "pp2_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-2-German/main/config.jet",
+            "pp3_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-3-German/main/config.jet",
+            "pp5_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-5-German/main/config.jet",
+            "pp7_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-7-German/main/config.jet",
+            "pp8_epic": "https://raw.githubusercontent.com/Nesjob/The-Jackbox-Party-Pack-8-German/main/config.jet",
+            "dr2_epic": "https://raw.githubusercontent.com/DerErizzle/Drawful-2-German/main/jbg.config.jet"
         },
         "patch-locale": "DE",
         "patch": {
@@ -59,7 +67,15 @@
             "dr2": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main/jbg.config.jet",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
             "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
-            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main/config.dat"
+            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main/config.dat",
+            
+            "pp1_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
+            "pp2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
+            "pp3_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-3-Spanish/main/Main/config.jet",
+            "pp5_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-5-Spanish/main/Main/config.jet",
+            "pp7_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/main/Main/config.jet",
+            "pp8_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/main/Main/config.jet",
+            "dr2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/Drawful-2-Latin-American-Spanish/main/Main/jbg.config.jet"
         },
         "patch-locale": "ES",
         "patch": {
@@ -104,7 +120,15 @@
             "dr2": "",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
             "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
-            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat"
+            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat",
+            
+            "pp1_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-1-Spanish/main/Main/config.jet",
+            "pp2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
+            "pp3_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-3-Spanish/main/Main[Spain]/config.jet",
+            "pp5_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-5-Spanish/main/Main/config.jet",
+            "pp7_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-7-Spanish/main/Main/config.jet",
+            "pp8_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-8-Spanish/main/Main/config.jet",
+            "dr2_epic": ""
         },
         "patch-locale": "ES-SPAIN",
         "patch": {
@@ -149,7 +173,15 @@
             "dr2": "",
             "fxl": "https://raw.githubusercontent.com/AkiraArtuhaxis/Fibbage-XL-Spanish/main/Main/jbg.config.jet",
             "uyw": "https://raw.githubusercontent.com/AkiraArtuhaxis/Use-Your-Words-Spanish/main/Main/config.dat",
-            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat"
+            "wtd": "https://raw.githubusercontent.com/AkiraArtuhaxis/What-The-Dub-Spanish/main/Main[Spain]/config.dat",
+            
+            "pp1_epic": "https://raw.githubusercontent.com/PauGuri2002/JPP1-CA/master/config.jet",
+            "pp2_epic": "https://raw.githubusercontent.com/AkiraArtuhaxis/The-Jackbox-Party-Pack-2-Spanish/main/Main/config.jet",
+            "pp3_epic": "https://raw.githubusercontent.com/PauGuri2002/JPP3-CA/master/config.jet",
+            "pp5_epic": "https://raw.githubusercontent.com/PauGuri2002/JPP5-CA/master/config.jet",
+            "pp7_epic": "https://raw.githubusercontent.com/PauGuri2002/JPP7-CA/master/config.jet",
+            "pp8_epic": "https://raw.githubusercontent.com/PauGuri2002/JPP8-CA/master/config.jet",
+            "dr2_epic": ""
         },
         "patch-locale": "CA",
         "patch": {
