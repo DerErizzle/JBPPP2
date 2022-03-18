@@ -55,7 +55,7 @@ public class DownloadManager : Reference
         lastPercent = targetPercent;
         if (timed_out == false) return;
         timed_out = false;
-        caller.Call("console_add_text", string.Format("Downloaded {0} of {1} bytes. {2}% completed", e.BytesReceived, e.TotalBytesToReceive, e.ProgressPercentage));
+        caller.Call("console_add_text", string.Format("Downloaded {0} of {1} MBytes. {2}% completed", e.BytesReceived / 1000000, e.TotalBytesToReceive / 1000000, e.ProgressPercentage));
     }
 
     private void OnDownloaded(object sender, System.ComponentModel.AsyncCompletedEventArgs e)

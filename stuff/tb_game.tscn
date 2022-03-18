@@ -14,7 +14,7 @@ func _on_bt_run_pressed() -> void:
 		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"steam://rungameid/%s\" % appid],false,output)
 		return
 	elif appname != \"\":
-		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"com.epicgames.launcher://apps/<%s>?action=launch&silent=true\" % appname],false,output)
+		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"com.epicgames.launcher://apps/%s?action=launch&silent=true\" % appname],false,output)
 		return
 	
 	pass # Replace with function body.

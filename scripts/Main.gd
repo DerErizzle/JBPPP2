@@ -373,7 +373,7 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 		console.visible = false
 		return
 
-	Manager.show_message(-1, "[color=lime]Download finished successfully![/color]")
+	Manager.show_message(-1, "[color=lime]Download finished successfully. Starting Installation[/color]")
 	
 	# EXTRACT FILES
 	var game_dir:String = ""
@@ -403,11 +403,11 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	print("updated")
 	pass
 
-func _on_bt_reset_pressed() -> void:
-	console.visible = true
-	var down_scr = load("res://scripts/DownloadManager.cs")
-	var down_man = down_scr.new()
-	down_man.Request(self, "https://github.com/Nesjob/The-Jackbox-Party-Pack-2-German/releases/latest/download/The-Jackbox-Party-Pack-2-German.zip","on_finished_download_test")
+#func _on_bt_reset_pressed() -> void:
+#	console.visible = true
+#	var down_scr = load("res://scripts/DownloadManager.cs")
+#	var down_man = down_scr.new()
+#	down_man.Request(self, "https://github.com/Nesjob/The-Jackbox-Party-Pack-2-German/releases/latest/download/The-Jackbox-Party-Pack-2-German.zip","on_finished_download_test")
 	
 	pass # Replace with function body.
 
