@@ -33,19 +33,13 @@ _global_script_classes=[ {
 "class": "Settings",
 "language": "GDScript",
 "path": "res://scripts/Settings.gd"
-}, {
-"base": "Reference",
-"class": "ZipExtractor",
-"language": "GDScript",
-"path": "res://scripts/ZipExtractor.gd"
 } ]
 _global_script_class_icons={
 "Config": "",
 "Main": "",
 "Mod": "",
 "MsgBox": "",
-"Settings": "",
-"ZipExtractor": ""
+"Settings": ""
 }
 
 [application]

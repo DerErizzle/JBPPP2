@@ -19,6 +19,7 @@ var screen_settings:Control
 var game_data:Dictionary = {}
 var mod_data:Dictionary = {}
 var data_local:Dictionary = {}
+var epic_data:Dictionary = {}
 
 var tween : Tween = Tween.new()
 var dir: Directory = Directory.new()
@@ -101,6 +102,7 @@ func _download_necessary_files() -> void:
 	add_child(http_loc)
 	http_loc.connect("request_completed",self,"_on_requested_locations")
 	http_loc.request(REMOTE_FILES.URL_LOCATIONS)
+	
 	
 	# Download `game_data.json`
 	 

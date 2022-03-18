@@ -13,16 +13,17 @@ struct tData {
 }
 public class ZipManager : Reference
 {
-    
+    [Signal]
+    delegate void threads_done();
     System.Threading.Mutex mutex = new System.Threading.Mutex();
     int jobs_done = 0;
 	Node theOwner;
-        async public void Extract(Node theOwner, string zipPath, String outPath) 
-		{
-		
-			int procCount = OS.GetProcessorCount()-1;
+    async public void Extract(Node theOwner, string zipPath, String outPath) 
+    {
+    
+        int procCount = OS.GetProcessorCount()-1;
         this.theOwner = theOwner;
-		theOwner.CallDeferred("console_add_text","Extracting files...");
+        theOwner.CallDeferred("console_add_text","Extracting files...");
         float startTime = OS.GetTicksMsec();
 
         var threads = new System.Threading.Thread[procCount];
@@ -46,7 +47,7 @@ public class ZipManager : Reference
 
             // GD.Print(String.Format("insert item: {0} > {2} < in Thread: {1}",i,i%OS.GetProcessorCount(),path));   
         }
-
+        zip.Dispose();
         jobs_done = 0;
         for (int i = 0; i < threads.Length; i++)
         {
@@ -69,7 +70,7 @@ public class ZipManager : Reference
         float endTime = OS.GetTicksMsec() - startTime;
         GD.Print("Done in: ", endTime);
 
-		theOwner.EmitSignal("threads_done");
+        EmitSignal("threads_done");
     }
 
     void JobExtract(object data)
@@ -83,6 +84,8 @@ public class ZipManager : Reference
             zip[d.zip_indexes[i]].Extract(d.outPath, ExtractExistingFileAction.OverwriteSilently);
         }
 
+        zip.Dispose();
+
         mutex.WaitOne();
         jobs_done += 1;
         mutex.ReleaseMutex();
@@ -90,3 +93,76 @@ public class ZipManager : Reference
     }
 
 }
+
+
+// using Godot;
+// using System;
+// using Ionic.Zip;
+// using System.Collections.Generic;
+
+// struct tData {
+//     public String outPath;
+//     public String zipPath;
+
+// }
+// public class ZipManager : Reference
+// {
+//     [Signal]
+//     delegate void threads_done();
+
+//     bool done = false;
+//     string sharedInfo = "";
+//     System.Threading.Mutex mutex = new System.Threading.Mutex();
+//     async public void Extract(Node theOwner, string zipPath, String outPath) 
+//     {
+//         done = false;
+//         theOwner.CallDeferred("console_add_text","Extracting files...");
+//         float startTime = OS.GetTicksMsec();
+
+
+//         System.Threading.Thread thread = new System.Threading.Thread(ExtractJob);
+//         tData data = new tData();
+//         data.outPath = outPath;
+//         data.zipPath = zipPath;
+//         thread.Start(data);
+ 
+//         GD.Print("Finished");
+//         float endTime = OS.GetTicksMsec() - startTime;
+//         GD.Print("Done in: ", endTime);
+
+//         while (true)
+//         {
+//             mutex.WaitOne();
+//             if (done) break;
+//             mutex.ReleaseMutex();
+
+//             theOwner.Call("console_add_text",sharedInfo);
+//             await ToSignal(theOwner.GetTree().CreateTimer(.5f,false),"timeout");
+//         }
+
+
+// 		EmitSignal("threads_done");
+//     }
+
+//     void ExtractJob(object data)
+//     {
+//         tData d = (tData)data;
+//         using (ZipFile zip = ZipFile.Read(d.zipPath))
+//         {
+//             zip.ExtractProgress += ExtractProgress;
+//             zip.ExtractAll(@d.outPath,ExtractExistingFileAction.OverwriteSilently);
+//             zip.Dispose();
+//         }
+//         mutex.WaitOne();
+//         done = true;
+//         mutex.ReleaseMutex();
+//     }
+
+//     void ExtractProgress(object sender ,ExtractProgressEventArgs e)
+//     {
+//         sharedInfo = string.Format("[{0}/{1}] at {2}",e.BytesTransferred,e.TotalBytesToTransfer,e.CurrentEntry);
+//     }
+
+    
+
+// }

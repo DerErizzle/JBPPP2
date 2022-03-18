@@ -6,15 +6,17 @@
 script/source = "extends Button
 
 var appid:String = \"\"
-
+var appname:String = \"\"
 func _on_bt_run_pressed() -> void:
-	
-	if appid == \"\": 
-		print(\"no appid provided\")
-		return
 	var output := []
-	OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"steam://rungameid/%s\" % appid],false,output)
-	print(\"Clicked: \", output)
+	
+	if appid != \"\": 
+		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"steam://rungameid/%s\" % appid],false,output)
+		return
+	elif appname != \"\":
+		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"com.epicgames.launcher://apps/<%s>?action=launch&silent=true\" % appname],false,output)
+		return
+	
 	pass # Replace with function body.
 "
 
@@ -61,7 +63,7 @@ margin_right = 109.0
 margin_bottom = 32.0
 text = "TTR_STATUS"
 
-[node name="bt_patch" type="Button" parent="VBoxContainer"]
+[node name="bt_patch" type="Button" parent="VBoxContainer" groups=["PATCH"]]
 margin_top = 36.0
 margin_right = 109.0
 margin_bottom = 56.0

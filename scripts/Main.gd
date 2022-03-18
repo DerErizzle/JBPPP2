@@ -1,6 +1,8 @@
 extends Control
 class_name Main
 
+signal updated #used for update all at once
+
 onready var bt_detect_all = find_node("bt_detect_all")
 onready var console:TextEdit = $Screen/Console
 
@@ -25,11 +27,13 @@ func _on_bt_detect_all_pressed() -> void:
 	if err != OK:
 		Manager.show_message(err)
 		return
-	
+	_detect_epic_games()
 	_detect_steam_games()
 	
 	pass # Replace with function body.
-
+ 
+const data_dirs = ["%s:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf", "%s:\\ProgramData\\Epic\\UnrealEngineLauncher\\LauncherInstalled.dat"]
+enum LAUNCHERS {STEAM, EPIC}
 func _detect_drive_letter() -> int:
 	
 #	print("TESTING DRIVE COUNT: ", dir.get_drive_count())
@@ -38,15 +42,33 @@ func _detect_drive_letter() -> int:
 	# This 2 lines below doesnt work on export, I did a workaround to avoid it
 #	for i in dir.get_drive_count():
 #		var letter : String = dir.get_drive(i)
+	var founds = [false, false]
 	for letter in ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","W","Y","Z"]:
 		print("checking letter ->  ", letter)
-		var err = file.open("%s:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf" % letter, File.READ)
-		if err == OK:
-			drive_letter = letter + ":" #REMOVE THIS ":" after fixing
-			steam_games_dir = "%s\\Program Files (x86)\\Steam\\steamapps\\common\\" % drive_letter
-			Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
-			break
-		else: continue
+		if founds[0] && founds[1]: break; # break if all where found
+		var err:int = -1
+		# Check for STEAM
+		if founds[LAUNCHERS.STEAM] == false:
+			err = file.open(data_dirs[LAUNCHERS.STEAM] % letter, File.READ)
+			if err == OK:
+				drive_letter = letter
+				steam_games_dir = "%s:\\Program Files (x86)\\Steam\\steamapps\\common\\" % drive_letter
+				Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
+				founds[LAUNCHERS.STEAM] = true
+				file.close()
+		
+		# Check for EPIC
+		err = -1
+#		
+		if founds[LAUNCHERS.EPIC] == false:
+			err = file.open(data_dirs[LAUNCHERS.EPIC] % letter, File.READ)
+			if err == OK:
+				var raw_epic_data:String = file.get_as_text()
+				raw_epic_data = raw_epic_data.replace("\\","/")
+				Manager.epic_data = parse_json(raw_epic_data)
+				Manager.show_message(-1, "found epic games data file")
+				founds[LAUNCHERS.EPIC] = true
+				file.close()
 	
 	print("DriveLetter: ", drive_letter)
 	
@@ -62,7 +84,7 @@ func _detect_steam_games() -> void:
 		child.queue_free()
 		pass
 	# Find libraryfolders.vdf
-	var library_folders_path:String = "%s\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf" % drive_letter
+	var library_folders_path:String = data_dirs[LAUNCHERS.STEAM] % drive_letter
 	var error = file.open(library_folders_path,File.READ)
 	if error != OK:
 		file.close()
@@ -134,19 +156,43 @@ func _detect_steam_games() -> void:
 	for game in Manager.game_data.games:
 		_insert_game(game)
 		pass
-	
-#		for arr in found_games_data:
-#			if str(game.appid) == str(arr[0]):
-#				Manager.show_message(-1, "[color=lime]Detected: %s[/color]" % game.title)
-#				game_detected = true
-#		_insert_game(game,game_detected)
-
 	pass
+
+func _detect_epic_games() -> void:
+	
+	
+	if Manager.epic_data.empty(): return
+	
+
+	
+	for game_index in Manager.game_data.games.size():
+		var game = Manager.game_data.games[game_index]
+		print(game)
+		if not game.has("appname"): continue
+		print(game.appname)
+		for epic_game in Manager.epic_data["InstallationList"]:
+			
+			if game.appname != epic_game.AppName: 
+				continue
+			
+			var install_path:String = epic_game["InstallLocation"]
+			Manager.game_data.games[game_index]["found"] = true
+			Manager.game_data.games[game_index]["epic"] = true
+			Manager.game_data.games[game_index]["path"] = install_path
+		pass
+
+	print(Manager.game_data)
+	print("Epic Done")
 
 const game_button = preload("res://stuff/tb_game.tscn")
 onready var game_container: GridContainer = find_node("GameContainer")
 
 func _insert_game(data:Dictionary) -> void:
+	
+	if data.shortname == "pp8":
+		print("break")
+	
+	pass
 	
 	var mod:TextureRect = game_button.instance()
 	
@@ -162,7 +208,11 @@ func _insert_game(data:Dictionary) -> void:
 	var lb_version:Label = mod.get_node("VBoxContainer/lb_version")
 	var bt_patch:Button = mod.get_node("VBoxContainer/bt_patch")
 	var bt_run:Button = mod.get_node("bt_run")
-	bt_run.appid = data.appid
+	if data.has("found"):
+		if data.has("epic"):
+			bt_run.appname = data.appname
+		else:
+			bt_run.appid = data.appid
 	bt_patch.connect("pressed",self,"_on_update_pressed",[bt_patch, data])
 	
 	
@@ -172,7 +222,7 @@ func _insert_game(data:Dictionary) -> void:
 		lb_status.text = ""
 		pass
 	else:
-		var game_version:String = _get_game_version(data)	
+		var game_version:String = _get_game_version(data)
 		lb_version.text = game_version
 		_check_game_status(data, lb_status, game_version, bt_patch)
 		pass
@@ -193,8 +243,11 @@ func _check_game_status(data:Dictionary, label:Label, version:String, button:But
 		print("mod_data is empty")
 		yield(Manager,"locations_downloaded")
 
-	var url :String = Manager.mod_data[Manager.data_local.lang]["version"][data.shortname]
+
+	var lang = Manager.data_local.lang
+	var url :String = Manager.mod_data[lang]["version"][data.shortname]
 	
+	_games_version_data = {}
 	Manager.create_request(self, "_on_version_requested",url,[data.shortname])
 
 	while not _games_version_data.has(data.shortname):
@@ -204,14 +257,22 @@ func _check_game_status(data:Dictionary, label:Label, version:String, button:But
 		Manager.show_message(-1, "[color=red]Failed requesting game version[/color]")
 		return
 
-	var _version :String = _games_version_data[data.shortname].buildVersion
-	var _version_number:float = Manager.get_float_from_string(_version)
+	var temp_local_version := version.split("-")
+	var remote_version :String = _games_version_data[data.shortname].buildVersion
+	
+	#check if has a language letter in the version string
+	if temp_local_version.size() >= 2:
+		# it has
+		var country_version:String = temp_local_version[1]
+		pass
+	
+	var _version_number:float = Manager.get_float_from_string(remote_version)
 	var local_version_number:float = Manager.get_float_from_string(version)
 	
-	if local_version_number < _version_number:
-		label.text = "Update Available\n %s" % _version
+	if remote_version != version:#local_version_number < _version_number:
+		label.text = "Update Available\n %s" % remote_version
 		label.add_color_override("font_color", Color.yellow)
-	elif local_version_number == _version_number:
+	else:#if local_version_number == _version_number:
 		label.text = "Updated"
 		label.add_color_override("font_color",Color.limegreen)
 		button.disabled = true
@@ -242,22 +303,26 @@ func _get_full_path(data_path:String, data_folder:String, data_file:String="") -
 
 
 func _get_game_version(data:Dictionary) -> String:
-	print("Getting game version")
 	
-	var game_path = _get_full_path(data.path, data.folder, data.config)
+	print("Getting game version")
+	var game_path:String = ""
+	if data.has("epic"):
+		game_path = data.path + ("/%s" % data.config)
+	else:
+		game_path = _get_full_path(data.path, data.folder, data.config)
 	
 	var err = file.open(game_path, File.READ)
 	
 	if err != OK:
+		file.close()
 		if data.has("custom_config"):
 			if data.custom_config == true:
 				return "NOT PATCHED"
 		Manager.show_message(-1, "[color=red]Couldnt find config file for: %s[/color]" % data.title)
 		return "NULL"
-	
 	var file_data :Dictionary = parse_json(file.get_as_text())
 	var build_version:String = file_data.buildVersion
-
+	file.close()
 	return build_version
 	
 
@@ -271,42 +336,54 @@ func screen_just_entered() -> void:
 		Manager.show_message(-1, "Error detecting drive letter: " + str(err) )
 		return
 	
+	_detect_epic_games()
 	_detect_steam_games()
 	pass
 
 signal _zip_downloaded
-signal threads_done
-var _is_download_done:bool = false
+#var _is_download_done:bool = false
 var _zip_failed:bool = false
 var _zip_game:Dictionary = {}
 func _on_update_pressed(button:Button, game:Dictionary) -> void:
-	_is_download_done = false
+	
+#	_is_download_done = false
 	console.visible = true
+	console_add_text("patching: "+ game.title)
 	_zip_failed = false
 	_zip_game = game
-	var url_mod:String = Manager.mod_data[Manager.data_local.lang]["patch"][game.shortname]
-	var http:HTTPRequest = Manager.create_request(self,"_on_downloaded_zip",url_mod)
-	console_add_text("Downloading patch...")
-	var last_percent:int = -1
-	while not _is_download_done:
-		var request_size:int = http.get_body_size()
-		var downloaded_bytes:int = http.get_downloaded_bytes()
-		var percent := int(downloaded_bytes*100/request_size)
-		if percent > last_percent:
-			console_add_text("%d%%" % [percent])
-		last_percent = percent
-		yield(get_tree().create_timer(.1,false),"timeout")
-		pass
+	
+	# Epic string will be empty if its steam
+	var epic_string:String = ""
+	if game.has("epic"):
+		epic_string = "_epic";
+	
+	var url_mod:String = Manager.mod_data[Manager.data_local.lang]["patch"][game.shortname + epic_string]
+	var out_dir:String = ProjectSettings.globalize_path("user://") + game.shortname + ".zip"
+	print(out_dir)
 	button.disabled = true
-	http.queue_free()
+	var down_src = load("res://scripts/DownloadManager.cs")
+	var down_file = down_src.new()
+	down_file.Request(self, url_mod, out_dir,"_on_downloaded_zip")
+	print("waiting for finished signal")
+	yield(down_file, "finished")
+	print("finished finally")
+	print("FINISHED ESSA PORRA")
 	if _zip_failed:
-		Manager.show_message(-1,"[color=red] DOWNLOAD ERROR[/color]")
-		button.disabled = false
+		Manager.show_message(-1, "[color=red]Failed Download[/color]")
+		console.visible = false
 		return
+
 	Manager.show_message(-1, "[color=lime]Download finished successfully![/color]")
 	
 	# EXTRACT FILES
-	var game_dir:String = _get_full_path(game.path,game.folder)
+	var game_dir:String = ""
+	if game.has("epic"):
+		game_dir = game.path
+		pass
+	else:
+		game_dir = _get_full_path(game.path,game.folder)
+		pass
+		
 	
 	var zip_script = load("res://scripts/ZipManager.cs")
 	var zip_man = zip_script.new()
@@ -316,29 +393,27 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	print("changed")
 	zip_man.Extract(self,path_file, game_dir )
 	
-	yield(self, "threads_done")
+	yield(zip_man, "threads_done")
 
 	console.visible = false
 	console.text = ""
+	zip_man = null
 	_detect_steam_games() # update the datas
+	emit_signal("updated")
+	print("updated")
 	pass
-
-func _on_downloaded_zip(result: int, response_code: int, headers: PoolStringArray, body: PoolByteArray) -> void:
-	if response_code != 200:
-		_zip_failed = true
-		emit_signal("_zip_downloaded")
-		return
-	var err = file.open("user://%s.zip" % _zip_game.shortname,File.WRITE)
-	file.store_buffer(body)
-	file.close()
-	_is_download_done = true
-	emit_signal("_zip_downloaded")
-	pass
-
 
 func _on_bt_reset_pressed() -> void:
-	_detect_steam_games()
+	console.visible = true
+	var down_scr = load("res://scripts/DownloadManager.cs")
+	var down_man = down_scr.new()
+	down_man.Request(self, "https://github.com/Nesjob/The-Jackbox-Party-Pack-2-German/releases/latest/download/The-Jackbox-Party-Pack-2-German.zip","on_finished_download_test")
+	
 	pass # Replace with function body.
+
+func on_finished_download_test(msg:String) -> void:
+	console_add_text(msg)
+	pass
 
 func _on_bt_lang_pressed() -> void:
 	Manager.data_local.erase("lang")
@@ -346,9 +421,31 @@ func _on_bt_lang_pressed() -> void:
 	Manager.emit_signal("data_file", false) # emit the data file with not found to create another
 	pass # Replace with function body.
 
-
-
-
 func _on_bt_cmd_toggled(button_pressed: bool) -> void:
 	console.visible = button_pressed
 	pass # Replace with function body.
+
+
+func _on_bt_upall_pressed() -> void:
+	
+	$Screen/bt_upall.disabled = true
+	var updated:int = 0
+	
+	while true:
+		var buttons = get_tree().get_nodes_in_group("PATCH");
+		var size = buttons.size()
+		var target:Button = null
+		for button in buttons:
+			if button.disabled: continue
+			target = button
+			break
+		if target == null:
+			
+			 break
+		target.emit_signal("pressed")
+		yield(self,"updated")
+		print("next game")
+		yield(get_tree().create_timer(2,false),"timeout")
+		pass
+	Manager.show_message(-1,"[color=lime]UPDATED ALL SUCCESSFULLY[/color]")
+	$Screen/bt_upall.disabled = false
