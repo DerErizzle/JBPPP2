@@ -19,11 +19,13 @@ func _on_Button_pressed() -> void:
 
 func _on_completed(object, key) -> void:
 	if _done:
+		if get_parent().get_child_count()-1 <= 0:
+			get_parent().get_parent().visible = false
 		queue_free()
 		return
 	_done = true
 	yield(get_tree().create_timer(_time,false),"timeout")
-	if not is_instance_valid(self): return
+	if not is_inside_tree(): return
 	tween.interpolate_property(self, "modulate",Color(1,1,1,1),Color(1,1,1,0), .3,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
 	tween.start()
 	pass

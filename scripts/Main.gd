@@ -19,18 +19,6 @@ func console_add_text(message:String) -> void:
 	console.text += message + "\n"
 	_line += 1
 	console.cursor_set_line(_line)
-
-func _on_bt_detect_all_pressed() -> void:
-	
-	var err = _detect_drive_letter()
-	
-	if err != OK:
-		Manager.show_message(err)
-		return
-	_detect_epic_games()
-	_detect_steam_games()
-	
-	pass # Replace with function body.
  
 const data_dirs = ["%s:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf", "%s:\\ProgramData\\Epic\\UnrealEngineLauncher\\LauncherInstalled.dat"]
 enum LAUNCHERS {STEAM, EPIC}
@@ -153,9 +141,7 @@ func _detect_steam_games() -> void:
 	
 	print(Manager.game_data.games)
 	
-	for game in Manager.game_data.games:
-		_insert_game(game)
-		pass
+	
 	pass
 
 func _detect_epic_games() -> void:
@@ -168,7 +154,7 @@ func _detect_epic_games() -> void:
 	for game_index in Manager.game_data.games.size():
 		var game = Manager.game_data.games[game_index]
 		print(game)
-		if not game.has("appname"): continue
+		if not game.has("appname") or game.has("found"): continue # the found key is used because when the steam version could be already detected
 		print(game.appname)
 		for epic_game in Manager.epic_data["InstallationList"]:
 			
@@ -189,11 +175,6 @@ onready var game_container: GridContainer = find_node("GameContainer")
 
 func _insert_game(data:Dictionary) -> void:
 	
-	if data.shortname == "pp8":
-		print("break")
-	
-	pass
-	
 	var mod:TextureRect = game_button.instance()
 	
 	var texture = ImageTexture.new()
@@ -208,11 +189,13 @@ func _insert_game(data:Dictionary) -> void:
 	var lb_version:Label = mod.get_node("VBoxContainer/lb_version")
 	var bt_patch:Button = mod.get_node("VBoxContainer/bt_patch")
 	var bt_run:Button = mod.get_node("bt_run")
+	
 	if data.has("found"):
-		if data.has("epic"):
-			bt_run.appname = data.appname
-		else:
-			bt_run.appid = data.appid
+		bt_run.game_data = data
+#		if data.has("epic"):
+#			bt_run.appname = data.appname
+#		else:
+#			bt_run.appid = data.appid
 	bt_patch.connect("pressed",self,"_on_update_pressed",[bt_patch, data])
 	
 	
@@ -247,7 +230,14 @@ func _check_game_status(data:Dictionary, label:Label, version:String, button:But
 	var lang = Manager.data_local.lang
 	var url :String = Manager.mod_data[lang]["version"][data.shortname]
 	
+	if url == "":
+		label.text = "No Patch Available"
+		button.disabled = true
+		label.add_color_override("font_color",Color.wheat)
+		return
+	
 	_games_version_data = {}
+	
 	Manager.create_request(self, "_on_version_requested",url,[data.shortname])
 
 	while not _games_version_data.has(data.shortname):
@@ -336,9 +326,18 @@ func screen_just_entered() -> void:
 		Manager.show_message(-1, "Error detecting drive letter: " + str(err) )
 		return
 	
-	_detect_epic_games()
+	
 	_detect_steam_games()
+	_detect_epic_games()
+	
+	_update_games()
+	
 	pass
+
+func _update_games():
+	for game in Manager.game_data.games:
+		_insert_game(game)
+		pass
 
 signal _zip_downloaded
 #var _is_download_done:bool = false
@@ -401,6 +400,9 @@ func _on_update_pressed(button:Button, game:Dictionary) -> void:
 	_detect_steam_games() # update the datas
 	emit_signal("updated")
 	print("updated")
+	
+	_update_games()
+	
 	pass
 
 #func _on_bt_reset_pressed() -> void:

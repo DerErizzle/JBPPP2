@@ -5,19 +5,21 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Button
 
-var appid:String = \"\"
-var appname:String = \"\"
+var game_data:Dictionary
+
 func _on_bt_run_pressed() -> void:
 	var output := []
 	
-	if appid != \"\": 
-		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"steam://rungameid/%s\" % appid],false,output)
+	if not game_data.has(\"epic\"): 
+		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"steam://rungameid/%s\" % game_data.appid],false,output)
 		return
-	elif appname != \"\":
-		OS.execute(\"CMD.exe\",[\"/c\",\"start\",\"com.epicgames.launcher://apps/%s?action=launch&silent=true\" % appname],false,output)
+	else:
+		print(Manager.epic_data.InstallationList)
+#		OS.shell_open(\"res://CMD/%s.bat\" % shortname)
+		var game_path:String = game_data.path+\"/%s\" % game_data.exe
+		
+		OS.execute(game_path,[],true)
 		return
-	
-	pass # Replace with function body.
 "
 
 [node name="tb_game" type="TextureRect"]

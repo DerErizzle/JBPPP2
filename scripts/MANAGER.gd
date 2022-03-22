@@ -34,7 +34,7 @@ func _ready() -> void:
 	# Configure window ======
 	
 	OS.set_window_title("JBPPP - Jackbox Party Pack Patcher")
-	var win_size :Vector2 = OS.get_screen_size() / 2
+	var win_size :Vector2 = OS.get_screen_size() / 1.4
 	OS.window_size = win_size
 	OS.center_window()
 	# DONE WINDOW CONFIG ======
@@ -54,10 +54,12 @@ func _ready() -> void:
 	
 	add_child(tween)
 
+
+
 func show_message(error_id:int=-1, extra_msg:String="") -> void:
 	var msg_box:MsgBox = msg_box_scene.instance()
-	
-	
+	var vbox:VBoxContainer = _msgContainer.get_child(0)
+	_msgContainer.visible = true
 	var msg:String = ": %s" % extra_msg
 	match error_id:
 		ERROR.STEAM_NOT_FOUND: msg_box.set_message("STEAM NOT FOUND" + msg)
@@ -66,7 +68,7 @@ func show_message(error_id:int=-1, extra_msg:String="") -> void:
 		ERROR.IMAGE_CORRUPTED: msg_box.set_message("IMAGE CORRUPTED" + msg)
 		_: msg_box.set_message(extra_msg)
 	
-	_msgContainer.get_child(0).add_child(msg_box)
+	vbox.add_child(msg_box)
 	pass
 
 func set_game_data(data:Dictionary) -> void:
