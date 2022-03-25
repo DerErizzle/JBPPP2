@@ -30,6 +30,10 @@ func _detect_drive_letter() -> int:
 	# This 2 lines below doesnt work on export, I did a workaround to avoid it
 #	for i in dir.get_drive_count():
 #		var letter : String = dir.get_drive(i)
+	
+	
+	# try to detect steam
+	
 	var founds = [false, false]
 	for letter in ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","W","Y","Z"]:
 		print("checking letter ->  ", letter)
@@ -41,6 +45,15 @@ func _detect_drive_letter() -> int:
 			if err == OK:
 				drive_letter = letter
 				steam_games_dir = "%s:\\Program Files (x86)\\Steam\\steamapps\\common\\" % drive_letter
+				Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
+				founds[LAUNCHERS.STEAM] = true
+				file.close()
+			else:
+				var pf_scr = load("res://scripts/ProgramFinder.cs")
+				var program_finder = pf_scr.new()
+				var result:String = program_finder.FindSteam()
+				drive_letter = result[0]
+				steam_games_dir = result.replace("\\","/")+"/steamapps/common/"
 				Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
 				founds[LAUNCHERS.STEAM] = true
 				file.close()

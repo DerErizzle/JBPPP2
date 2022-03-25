@@ -31,6 +31,7 @@ onready var _msgContainer = get_tree().get_nodes_in_group("MC")[0]
 const msg_box_scene = preload("res://stuff/msg_box.tscn")
 func _ready() -> void:
 	
+	
 	# Configure window ======
 	
 	OS.set_window_title("JBPPP - Jackbox Party Pack Patcher")

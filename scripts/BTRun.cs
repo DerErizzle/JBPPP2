@@ -8,20 +8,23 @@ public class BTRun : Button
 
     public void _on_bt_run_pressed()
     {
-        if (game_data.Contains("epic"))
+        try
         {
-            // string gamePath = (string)game_data["path"];
-            // string gameExe = (string)game_data["exe"];
-            // string path = gamePath.Replace("/","\\") + "\\" + gameExe;
-            // GD.Print(path);
-            string strCmdText = string.Format("/C start com.epicgames.launcher://apps/{0}?action=launch&silent=true",(string)game_data["appname"]);
-            System.Diagnostics.Process.Start("CMD.exe",strCmdText);
+            if (game_data.Contains("epic"))
+            {
+                string strCmdText = string.Format("/C start com.epicgames.launcher://apps/{0}?action=launch&silent=true",(string)game_data["appname"]);
+                System.Diagnostics.Process.Start("CMD.exe",strCmdText);
+            }
+            else
+            {
+                OS.Execute("CMD.exe", new string[]{"/c","start",string.Format("steam://rungameid/{0}",game_data["appid"])},false);
+            }
+            GD.Print(game_data);
         }
-        else
+        catch(Exception e)
         {
-            OS.Execute("CMD.exe", new string[]{"/c","start",string.Format("steam://rungameid/{0}",game_data["appid"])},false);
+            GD.Print("Error opening game: ", e.Message);
         }
-        GD.Print(game_data);
     }
 
 }
