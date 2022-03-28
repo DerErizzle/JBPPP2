@@ -10,8 +10,8 @@ var dir := Directory.new()
 var file := File.new()
 
 
-var drive_letter:String = ""
 var steam_games_dir:String = ""
+var epic_games_dir:String = ""
 
 var _line:int = 0
 func console_add_text(message:String) -> void:
@@ -20,8 +20,6 @@ func console_add_text(message:String) -> void:
 	_line += 1
 	console.cursor_set_line(_line)
  
-const data_dirs = ["%s:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf", "%s:\\ProgramData\\Epic\\UnrealEngineLauncher\\LauncherInstalled.dat"]
-enum LAUNCHERS {STEAM, EPIC}
 func _detect_drive_letter() -> int:
 	
 #	print("TESTING DRIVE COUNT: ", dir.get_drive_count())
@@ -34,50 +32,41 @@ func _detect_drive_letter() -> int:
 	
 	# try to detect steam
 	
-	var founds = [false, false]
-	for letter in ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","X","W","Y","Z"]:
-		print("checking letter ->  ", letter)
-		if founds[0] && founds[1]: break; # break if all where found
-		var err:int = -1
-		# Check for STEAM
-		if founds[LAUNCHERS.STEAM] == false:
-			err = file.open(data_dirs[LAUNCHERS.STEAM] % letter, File.READ)
-			if err == OK:
-				drive_letter = letter
-				steam_games_dir = "%s:\\Program Files (x86)\\Steam\\steamapps\\common\\" % drive_letter
-				Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
-				founds[LAUNCHERS.STEAM] = true
-				file.close()
-			else:
-				var pf_scr = load("res://scripts/ProgramFinder.cs")
-				var program_finder = pf_scr.new()
-				var result:String = program_finder.FindSteam()
-				drive_letter = result[0]
-				steam_games_dir = result.replace("\\","/")+"/steamapps/common/"
-				Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
-				founds[LAUNCHERS.STEAM] = true
-				file.close()
-		
-		# Check for EPIC
-		err = -1
-#		
-		if founds[LAUNCHERS.EPIC] == false:
-			err = file.open(data_dirs[LAUNCHERS.EPIC] % letter, File.READ)
-			if err == OK:
-				var raw_epic_data:String = file.get_as_text()
-				raw_epic_data = raw_epic_data.replace("\\","/")
-				Manager.epic_data = parse_json(raw_epic_data)
-				Manager.show_message(-1, "found epic games data file")
-				founds[LAUNCHERS.EPIC] = true
-				file.close()
+	var pf_scr = load("res://scripts/ProgramFinder.cs")
+	var program_finder = pf_scr.new()
+	var result:String = program_finder.FindSteam()
 	
-	print("DriveLetter: ", drive_letter)
+	if result != "":
+		steam_games_dir = result.replace("\\","/")+"/steamapps/"
+		Manager.show_message(-1, "found steam dir: %s" % steam_games_dir)
 	
-	if drive_letter == "":
-		return Manager.ERROR.STEAM_NOT_FOUND
-	else:
-		return OK
-	pass
+	
+	# Check for epic
+	
+	var epic_result:String = program_finder.FindEpic()
+	
+	if epic_result != "":
+		print(epic_result)
+		epic_result = epic_result.replace("\\","/")
+		var split = epic_result.split("/")
+		epic_games_dir = ""
+		for i in range(split.size()-3):
+			epic_games_dir += split[i]+"/"
+			pass
+		epic_games_dir += "UnrealEngineLauncher/LauncherInstalled.dat"
+		var err = file.open(epic_games_dir, File.READ)
+		if err == OK:
+			var raw_epic_data:String = file.get_as_text()
+			raw_epic_data = raw_epic_data.replace("\\","/")
+			Manager.epic_data = parse_json(raw_epic_data)
+			Manager.show_message(-1, "found epic games data file")
+			file.close()
+			return 0
+		else: return -1
+		file.close()
+		print("done")
+	
+	return 0
 
 func _detect_steam_games() -> void:
 	_signal_game_list = []
@@ -85,7 +74,7 @@ func _detect_steam_games() -> void:
 		child.queue_free()
 		pass
 	# Find libraryfolders.vdf
-	var library_folders_path:String = data_dirs[LAUNCHERS.STEAM] % drive_letter
+	var library_folders_path:String = steam_games_dir + "libraryfolders.vdf"
 	var error = file.open(library_folders_path,File.READ)
 	if error != OK:
 		file.close()
