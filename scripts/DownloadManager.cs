@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Net;
+using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Diagnostics;
 
 public class DownloadManager : Reference
 {
@@ -13,8 +15,16 @@ public class DownloadManager : Reference
     private bool timed_out = false;
     int lastPercent = -1;
 
+    IntPtr handle = Process.GetCurrentProcess().MainWindowHandle;
+
     public void Request(Node the_caller, String url, String outDir, String callback_func)
     {
+        GD.Print(handle);
+        TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal,handle);
+
+        
+
+
         // Accept All requests to https (workaround)
         System.Net.ServicePointManager.ServerCertificateValidationCallback =
             ((sender, certificate, chain, sslPolicyErrors) => true);
@@ -37,6 +47,7 @@ public class DownloadManager : Reference
             client.DownloadFileCompleted += OnDownloaded;
             lastPercent = -1;
             client.DownloadFileAsync(source, outDir, outDir);
+            
         }
         
        
@@ -50,6 +61,7 @@ public class DownloadManager : Reference
 
     private void OnProgressChanged(object sender, DownloadProgressChangedEventArgs e) 
     {
+        TaskbarManager.Instance.SetProgressValue(e.ProgressPercentage,100, handle);
         int targetPercent = e.ProgressPercentage;
         if (lastPercent >= targetPercent) return;
         lastPercent = targetPercent;
@@ -60,6 +72,7 @@ public class DownloadManager : Reference
 
     private void OnDownloaded(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
+        TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress, handle);
         timer.QueueFree();
         var client = (WebClient)sender;
         client.DownloadProgressChanged -= OnProgressChanged;

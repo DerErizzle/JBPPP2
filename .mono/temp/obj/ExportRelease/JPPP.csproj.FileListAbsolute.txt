@@ -11,3 +11,9 @@ C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportRelease\JPPP.csproj.
 C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportRelease\JPPP.csproj.CopyComplete
 C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportRelease\JPPP.dll
 C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\ExportRelease\JPPP.pdb
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportRelease\Microsoft.WindowsAPICodePack.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportRelease\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportRelease\Microsoft.WindowsAPICodePack.Sensors.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportRelease\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportRelease\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\ExportRelease\PresentationFramework.dll

@@ -11,3 +11,9 @@ C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\Debug\JPPP.dll
 C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\obj\Debug\JPPP.pdb
 C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\DotNetZip.pdb
 C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\DotNetZip.xml
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\PresentationFramework.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
+C:\Users\nonunknown\Desktop\Jobs\JBPPP\.mono\temp\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll

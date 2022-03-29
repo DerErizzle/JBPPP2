@@ -7,6 +7,24 @@
   <Reference Include="DotNetZip">
     <HintPath>dependencies/DotNetZip.dll</HintPath>
   </Reference>
+  <Reference Include="Microsoft.WindowsAPICodePack">
+    <HintPath>dependencies/Microsoft.WindowsAPICodePack.dll</HintPath>
+  </Reference>
+  <Reference Include="Microsoft.WindowsAPICodePack.ExtendedLinguisticServices">
+    <HintPath>dependencies/Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll</HintPath>
+  </Reference>
+  <Reference Include="Microsoft.WindowsAPICodePack.Sensors">
+    <HintPath>dependencies/Microsoft.WindowsAPICodePack.Sensors.dll</HintPath>
+  </Reference>
+  <Reference Include="PresentationFramework">
+    <HintPath>dependencies/PresentationFramework.dll</HintPath>
+  </Reference>
+  <Reference Include="Microsoft.WindowsAPICodePack.Shell">
+    <HintPath>dependencies/Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+  </Reference>
+  <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions">
+    <HintPath>dependencies/Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+  </Reference>
 </ItemGroup>
 
 </Project>

@@ -4,6 +4,8 @@ using System.Text;
 using Ionic.Zip;
 using Ionic.Zlib;
 using System.Collections.Generic;
+using Microsoft.WindowsAPICodePack.Taskbar;
+using System.Diagnostics;
 
 struct tData {
     public List<int> zip_indexes;
@@ -18,9 +20,11 @@ public class ZipManager : Reference
     System.Threading.Mutex mutex = new System.Threading.Mutex();
     int jobs_done = 0;
 	Node theOwner;
+
+    IntPtr handle = Process.GetCurrentProcess().MainWindowHandle;
     async public void Extract(Node theOwner, string zipPath, String outPath) 
     {
-    
+        TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal, handle);
         int procCount = OS.GetProcessorCount()-1;
         this.theOwner = theOwner;
         theOwner.CallDeferred("console_add_text","Extracting files...");
@@ -62,10 +66,12 @@ public class ZipManager : Reference
         
         while(jobs_done < threads.Length)
         {
+            TaskbarManager.Instance.SetProgressValue(jobs_done,threads.Length,handle);
+
             GD.Print("Jobs DOne: ", jobs_done);
             await ToSignal(theOwner.GetTree(),"idle_frame");
         }
-
+        TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress, handle);
         GD.Print("Finished");
         float endTime = OS.GetTicksMsec() - startTime;
         GD.Print("Done in: ", endTime);
@@ -93,76 +99,3 @@ public class ZipManager : Reference
     }
 
 }
-
-
-// using Godot;
-// using System;
-// using Ionic.Zip;
-// using System.Collections.Generic;
-
-// struct tData {
-//     public String outPath;
-//     public String zipPath;
-
-// }
-// public class ZipManager : Reference
-// {
-//     [Signal]
-//     delegate void threads_done();
-
-//     bool done = false;
-//     string sharedInfo = "";
-//     System.Threading.Mutex mutex = new System.Threading.Mutex();
-//     async public void Extract(Node theOwner, string zipPath, String outPath) 
-//     {
-//         done = false;
-//         theOwner.CallDeferred("console_add_text","Extracting files...");
-//         float startTime = OS.GetTicksMsec();
-
-
-//         System.Threading.Thread thread = new System.Threading.Thread(ExtractJob);
-//         tData data = new tData();
-//         data.outPath = outPath;
-//         data.zipPath = zipPath;
-//         thread.Start(data);
- 
-//         GD.Print("Finished");
-//         float endTime = OS.GetTicksMsec() - startTime;
-//         GD.Print("Done in: ", endTime);
-
-//         while (true)
-//         {
-//             mutex.WaitOne();
-//             if (done) break;
-//             mutex.ReleaseMutex();
-
-//             theOwner.Call("console_add_text",sharedInfo);
-//             await ToSignal(theOwner.GetTree().CreateTimer(.5f,false),"timeout");
-//         }
-
-
-// 		EmitSignal("threads_done");
-//     }
-
-//     void ExtractJob(object data)
-//     {
-//         tData d = (tData)data;
-//         using (ZipFile zip = ZipFile.Read(d.zipPath))
-//         {
-//             zip.ExtractProgress += ExtractProgress;
-//             zip.ExtractAll(@d.outPath,ExtractExistingFileAction.OverwriteSilently);
-//             zip.Dispose();
-//         }
-//         mutex.WaitOne();
-//         done = true;
-//         mutex.ReleaseMutex();
-//     }
-
-//     void ExtractProgress(object sender ,ExtractProgressEventArgs e)
-//     {
-//         sharedInfo = string.Format("[{0}/{1}] at {2}",e.BytesTransferred,e.TotalBytesToTransfer,e.CurrentEntry);
-//     }
-
-    
-
-// }

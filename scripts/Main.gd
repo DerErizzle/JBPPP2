@@ -194,10 +194,6 @@ func _insert_game(data:Dictionary) -> void:
 	
 	if data.has("found"):
 		bt_run.game_data = data
-#		if data.has("epic"):
-#			bt_run.appname = data.appname
-#		else:
-#			bt_run.appid = data.appid
 	bt_patch.connect("pressed",self,"_on_update_pressed",[bt_patch, data])
 	
 	
@@ -230,7 +226,9 @@ func _check_game_status(data:Dictionary, label:Label, version:String, button:But
 
 
 	var lang = Manager.data_local.lang
-	var url :String = Manager.mod_data[lang]["version"][data.shortname]
+	var is_epic:String = ""
+	if data.has("epic"): is_epic = "_epic"
+	var url :String = Manager.mod_data[lang]["version"][data.shortname + is_epic]
 	
 	if url == "":
 		label.text = "No Patch Available"
@@ -295,7 +293,6 @@ func _get_full_path(data_path:String, data_folder:String, data_file:String="") -
 
 
 func _get_game_version(data:Dictionary) -> String:
-	
 	print("Getting game version")
 	var game_path:String = ""
 	if data.has("epic"):
@@ -304,6 +301,8 @@ func _get_game_version(data:Dictionary) -> String:
 		game_path = _get_full_path(data.path, data.folder, data.config)
 	
 	var err = file.open(game_path, File.READ)
+	
+	
 	
 	if err != OK:
 		file.close()
@@ -448,8 +447,12 @@ func _on_bt_upall_pressed() -> void:
 			 break
 		target.emit_signal("pressed")
 		yield(self,"updated")
+		updated += 1
 		print("next game")
 		yield(get_tree().create_timer(2,false),"timeout")
 		pass
-	Manager.show_message(-1,"[color=lime]UPDATED ALL SUCCESSFULLY[/color]")
+	if updated > 0:
+		Manager.show_message(-1,"[color=lime]UPDATED ALL SUCCESSFULLY[/color]")
+	else:
+		Manager.show_message(-1,"There's no game to patch!")
 	$Screen/bt_upall.disabled = false
