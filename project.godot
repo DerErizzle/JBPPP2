@@ -50,7 +50,7 @@ run/low_processor_mode=true
 run/low_processor_mode_sleep_usec=8000
 boot_splash/image="res://pictures/splash.png"
 config/icon="res://pictures/jbppp.png"
-config/windows_native_icon="res://pictures/jbppp.ico"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 

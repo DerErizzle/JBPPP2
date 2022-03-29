@@ -15,7 +15,7 @@ public class DownloadManager : Reference
     private bool timed_out = false;
     int lastPercent = -1;
 
-    IntPtr handle = Process.GetCurrentProcess().MainWindowHandle;
+    IntPtr handle = (IntPtr)OS.GetNativeHandle(OS.HandleType.WindowHandle);
 
     public void Request(Node the_caller, String url, String outDir, String callback_func)
     {

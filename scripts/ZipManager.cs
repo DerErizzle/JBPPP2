@@ -21,7 +21,7 @@ public class ZipManager : Reference
     int jobs_done = 0;
 	Node theOwner;
 
-    IntPtr handle = Process.GetCurrentProcess().MainWindowHandle;
+    IntPtr handle = (IntPtr)OS.GetNativeHandle(OS.HandleType.WindowHandle);
     async public void Extract(Node theOwner, string zipPath, String outPath) 
     {
         TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal, handle);
