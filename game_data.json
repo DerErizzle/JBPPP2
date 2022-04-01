@@ -128,6 +128,26 @@
       "custom_config": true
     },
     {
+      "title": "YDKJ Vol. 3",
+      "shortname": "ydkj3",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/ydkj3.png?raw=true",
+      "appid": 259960,
+      "exe": "YDKJV3.EXE",
+      "folder": "YDKJ_VOL3",
+      "config": "config.dat",
+      "custom_config": true
+    },
+    {
+      "title": "YDKJ Vol. 4",
+      "shortname": "ydkj3",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/ydkj4.png?raw=true",
+      "appid": 259980,
+      "exe": "YDKJV4.EXE",
+      "folder": "YDKJ_VOL4",
+      "config": "config.dat",
+      "custom_config": true
+    },
+    {
       "title": "Use Your Words",
       "shortname": "uyw",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/uyw.png?raw=true",
