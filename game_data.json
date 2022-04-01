@@ -118,6 +118,16 @@
       "config": "jbg.config.jet"
     },
     {
+      "title": "YDKJ Vol. 2",
+      "shortname": "ydkj2",
+      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/ydkj2.png?raw=true",
+      "appid": 259940,
+      "exe": "YDKJV2.EXE",
+      "folder": "YDKJ_VOL2",
+      "config": "config.dat",
+      "custom_config": true
+    },
+    {
       "title": "Use Your Words",
       "shortname": "uyw",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/uyw.png?raw=true",
