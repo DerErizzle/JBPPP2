@@ -166,6 +166,16 @@
       "folder": "WhatTheDub",
       "config": "config.dat",
       "custom_config": true
-    }
+    },
+    {
+        "title": "RiffTrax: The Game",
+        "shortname": "rttg",
+        "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/riff.png?raw=true",
+        "appid": 1707870,
+        "exe": "RiffTraxTheGame.exe",
+        "folder": "RiffTraxTheGame",
+        "config": "config.dat",
+        "custom_config": true
+      }
   ]
 }
