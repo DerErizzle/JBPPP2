@@ -81,6 +81,15 @@
       "config": "config.jet"
     },
     {
+        "title": "Party Pack 9",
+        "shortname": "pp9",
+        "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp9.png?raw=true",
+        "appid": 1850960,
+        "exe": "The Jackbox Party Pack 9.exe",
+        "folder": "The Jackbox Party Pack 9",
+        "config": "config.jet"
+      },
+    {
       "title": "Quiplash",
       "shortname": "qp1",
       "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/qp1.png?raw=true",
