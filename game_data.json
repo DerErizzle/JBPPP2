@@ -87,7 +87,7 @@
         "appid": 1850960,
         "exe": "The Jackbox Party Pack 9.exe",
         "folder": "The Jackbox Party Pack 9",
-        "config": "config.jet"
+        "config": "jbg.config.jet"
       },
     {
       "title": "Quiplash",
