@@ -6,9 +6,8 @@ When starting the program, it should detect Steam installations first. Then Epic
 
 **Steam game detection:**
 
-The information about where the games are installed are kept in:
-`C:\Program Files (x86)\Steam\steamapps\libraryfolders.vdf`
-
+Steam keeps a Windows registry entry about the location of the installation path of Steam. This is always at this location:
+`Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam`. From there, the value "InstallPath" needs to be read in order to get the path to the "Steam" folder. From there, you need to enter the "steamapps" folder and read the `libraryfolders.vdf` file. This file keeps track of all of the installed games and their install locations.
 
 This is an example of the file. In this case, the Party Pack 7 is installed to `C:\Program Files (x86)\Steam\steamapps\common\The Jackbox Party Pack 7` and the Party Pack 8 is installed to `D:\SteamLibrary\steamapps\common\The Jackbox Party Pack 8`. The first string ID is the App ID and the second string is the size in Bytes.
 
@@ -50,9 +49,12 @@ So for the installation folder it is always `"path"` + `"/steamapps/common/<Game
 
 **Epic Games game detection:**
 
-The information about where the games are installed are kept in:
-`C:\ProgramData\Epic\UnrealEngineLauncher\LauncherInstalled.dat`
+Epic Games also keeps a Windows registry entry about the location of the installation path of Epic Games. This is always at this location:
+`Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Epic Games\EpicGamesLauncher`. From there, the value "AppDataPath" needs to be read in order to get the path to the "Epic/EpicGamesLauncher/Data" folder. From there, you need to go back one folder (into "EpicGamesLauncherData") and enter the "Epic/UnrealEngineLauncher/" folder and read the `LauncherInstalled.dat` file. This file keeps track of all of the installed games and their install locations.
 
+
+So for example, the information about where the games are installed are kept in:
+`C:\ProgramData\Epic\UnrealEngineLauncher\LauncherInstalled.dat`
 
 This is an example of the file. In this case, the Party Pack 7 is installed to `C:\Program Files (x86)\Epic Games\JackboxPartyPack7` and the Party Pack 8 is installed to `D:\MyCustomInstallation\TJPP8`. The first string ID is the App ID and the second string is the size in Bytes.
 ```
@@ -85,147 +87,3 @@ Note that the folder names are different with the Epic Games version. But that i
 For the Party Pack 8, Epic Games needs a different download link for the patch than a Steam one. All of the other patches work for every platform. Party Pack 8 is currently the only exception. I would suggest a string named "alternate_download" in the `locations.json`. If that string exists at a game, the launcher should download the alternate version instead, if it's an Epic Games installation.
 
 What the Dub, Use Your Words, Quiplash, Quiplash 2 InterLASHional, Fibbage XL are not on Epic Games. The Party Packs + Drawful 2 are the only games available on Epic Games.
-
-```
-{
-  "games": [
-    {
-      "title": "Party Pack",
-      "shortname": "pp1",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp1.png?raw=true",
-      "appid": 331670,
-      "appname": "Feverfew"
-      "exe": "The Jackbox Party Pack.exe",
-      "folder": "The Jackbox Party Pack",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 2",
-      "shortname": "pp2",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp2.png?raw=true",
-      "appid": 397460,
-      "appname": "Lilac"
-      "exe": "The Jackbox Party Pack 2.exe",
-      "folder": "The Jackbox Party Pack 2",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 3",
-      "shortname": "pp3",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp3.png?raw=true",
-      "appid": 434170,
-      "appname": "Orchid"
-      "exe": "The Jackbox Party Pack 3.exe",
-      "folder": "The Jackbox Party Pack 3",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 4",
-      "shortname": "pp4",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp4.png?raw=true",
-      "appid": 610180,
-      "appname": "XXXXXXXXXX"
-      "exe": "The Jackbox Party Pack 4.exe",
-      "folder": "The Jackbox Party Pack 4",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 5",
-      "shortname": "pp5",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp5.png?raw=true",
-      "appid": 774461,
-      "appname": "Geranium"
-      "exe": "The Jackbox Party Pack 5.exe",
-      "folder": "The Jackbox Party Pack 5",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 6",
-      "shortname": "pp6",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp6.png?raw=true",
-      "appid": 1005300,
-      "appname": "XXXXXXXXXX"
-      "exe": "The Jackbox Party Pack 6.exe",
-      "folder": "The Jackbox Party Pack 6",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 7",
-      "shortname": "pp7",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp7.png?raw=true",
-      "appid": 1211630,
-      "appname": "7fb6ce95c6d04a44a55fef16ea0db4c9"
-      "exe": "The Jackbox Party Pack 7.exe",
-      "folder": "The Jackbox Party Pack 7",
-      "config": "config.jet"
-    },
-    {
-      "title": "Party Pack 8",
-      "shortname": "pp8",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/pp8.png?raw=true",
-      "appid": 1552350,
-      "appname": "67003fc4eaa444608acf083a08dc907e"
-      "exe": "The Jackbox Party Pack 8.exe",
-      "folder": "The Jackbox Party Pack 8",
-      "config": "config.jet"
-    },
-    {
-      "title": "Quiplash",
-      "shortname": "qp1",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/qp1.png?raw=true",
-      "appid": 351510,
-      "exe": "Quiplash.exe",
-      "folder": "Quiplash",
-      "config": "jbg.config.jet"
-    },
-    {
-      "title": "Quiplash 2 InterLASHional",
-      "shortname": "qp2",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/qp2.png?raw=true",
-      "appid": 1111940,
-      "exe": "Quiplash 2 InterLASHional.exe",
-      "folder": "Quiplash 2 InterLASHional",
-      "config": "jbg.config.jet"
-    },
-    {
-      "title": "Drawful 2",
-      "shortname": "dr2",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/dr2.png?raw=true",
-      "appid": 442070,
-      "appname": "Daisy"
-      "exe": "Drawful 2.exe",
-      "folder": "Drawful 2",
-      "config": "jbg.config.jet"
-    },
-    {
-      "title": "Fibbage XL",
-      "shortname": "fxl",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/fxl.png?raw=true",
-      "appid": 448080,
-      "exe": "Fibbage XL.exe",
-      "folder": "Fibbage XL",
-      "config": "jbg.config.jet"
-    },
-    {
-      "title": "Use Your Words",
-      "shortname": "uyw",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/uyw.png?raw=true",
-      "appid": 521350,
-      "exe": "uyw.exe",
-      "folder": "Use Your Words",
-      "config": "config.dat",
-      "custom_config": true
-    },
-    {
-      "title": "What the Dub",
-      "shortname": "wtd",
-      "icon": "https://github.com/DerErizzle/JBPPP2/blob/data/icons/wtd.png?raw=true",
-      "appid": 1495860,
-      "exe": "WhatTheDub.exe",
-      "folder": "WhatTheDub",
-      "config": "config.dat",
-      "custom_config": true
-    }
-  ]
-}
-```
